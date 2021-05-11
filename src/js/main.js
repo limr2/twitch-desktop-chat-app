@@ -34,7 +34,7 @@ function openChat() {
     win.setIgnoreMouseEvents(true)
 
     // and load the index.html of the app.
-    win.setPosition(0,0)
+    win.setPosition(0,400)
     win.loadFile(path.join(__dirname, 'chat.html'));
 }
 
