@@ -1,4 +1,4 @@
-# twitch-desktop-chat-app
+# twichat
 
 Todo:
   1. Window that shows twitch chat
