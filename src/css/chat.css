@@ -1,4 +1,5 @@
 #chat-box {
+    font-family: Inter,Roobert,Helvetica Neue,Helvetica,Arial,sans-serif;
     list-style: none;
     font-size: 18px;
     overflow-y: auto;
