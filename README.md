@@ -9,4 +9,4 @@ Todo:
   6. Font size/options
   7. Make app downloadable
   8. Allow nicknames
-  9. Color on username
+  9. Color on username/subscriber
