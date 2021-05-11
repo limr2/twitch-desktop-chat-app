@@ -11,3 +11,10 @@ Todo:
   8. Allow nicknames []
   9. Color on username/subscriber []
   10. Make messages clickable []
+
+Window:
+  Channel: ______
+  Font
+  Size
+  Location
+  
