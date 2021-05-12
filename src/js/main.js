@@ -25,7 +25,7 @@ function openChat() {
         width: 800,
         height: 500,
         transparent: true,
-        // frame: false,
+        frame: false,
         webPreferences: {
            nodeIntegration: true,
             contextIsolation: false,
@@ -34,7 +34,7 @@ function openChat() {
     });
   
     win.setAlwaysOnTop(true, 'screen');
-    // win.setIgnoreMouseEvents(true)
+    win.setIgnoreMouseEvents(true)
 
     // and load the index.html of the app.
     win.setPosition(0,400)
