@@ -27,11 +27,15 @@ function onMessageHandler (target, context, msg, self) {
  // Called every time the bot connects to Twitch chat
 function onConnectedHandler (addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
-    // twitchEmoji.add("roselol");
 }
 
 // Updates the chat display
 function updateChat(msg, context){
+
+    // twitchEmoji.add('roselol', function( err ){
+    //     if( !err )
+    //         console.log("Able to use custom channel emotes.")
+    // });
 
     console.log(context)
 

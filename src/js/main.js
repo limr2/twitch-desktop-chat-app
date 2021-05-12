@@ -4,7 +4,10 @@ window.$ = window.jquery = require('jquery')
 
 var win = null;
 
-$('#btn-open-chat').on('click', openChat())
+// switch button
+$('#btn-open-chat').on('click', function(){
+    openChat();
+});
 
 function openChat() {
     console.log('Opening Chat...')
@@ -36,6 +39,10 @@ function openChat() {
     // and load the index.html of the app.
     win.setPosition(0,400)
     win.loadFile(path.join(__dirname, 'chat.html'));
+}
+
+function closeChat(){
+    win.close();
 }
 
 // syncronize font slider and text input

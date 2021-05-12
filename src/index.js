@@ -25,34 +25,10 @@ const createWindow = () => {
   // mainWindow.webContents.openDevTools();
 };
 
-
-const openChat = () => {
-  console.log('Opening Chat...')
-  
-  const win = new BrowserWindow({
-      width: 800,
-      height: 500,
-      transparent: true,
-      // frame: false,
-      webPreferences: {
-         nodeIntegration: true,
-          contextIsolation: false,
-          enableRemoteModule: true
-      }
-  });
-
-  win.setAlwaysOnTop(true, 'screen');
-  // win.setIgnoreMouseEvents(true)
-
-  // and load the index.html of the app.
-  win.setPosition(0,400)
-  win.loadFile(path.join(__dirname, 'chat.html'));
-}
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', openChat);
+app.on('ready', createWindow);
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -67,7 +43,7 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    openChat();
+    createWindow();
   }
 });
 
