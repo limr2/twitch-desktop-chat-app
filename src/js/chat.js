@@ -27,6 +27,7 @@ function onMessageHandler (target, context, msg, self) {
  // Called every time the bot connects to Twitch chat
 function onConnectedHandler (addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
+    // twitchEmoji.add("roselol");
 }
 
 // Updates the chat display
@@ -43,11 +44,13 @@ function updateChat(msg, context){
     message.classList.add('message');
 
     username.style.color = context['color'];
+    message.style.marginLeft = "5px";
 
     username.innerText = context['display-name'];
-    message.innerText = ": " + msg;
+    message.innerHTML = twitchEmoji.parse(msg, { emojiSize : 'small' });
 
     newLine.append(username)
+    newLine.append(":")
     newLine.append(message)
 
     $('#chat-box').append(newLine)
