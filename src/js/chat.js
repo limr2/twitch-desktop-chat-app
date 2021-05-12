@@ -1,5 +1,6 @@
 var tmi = require('tmi.js');
 window.$ = window.jquery = require('jquery')
+var hexToRgb = require('hex-to-rgb');
 
 // Define configuration options
 const opts = {
@@ -32,11 +33,6 @@ function onConnectedHandler (addr, port) {
 // Updates the chat display
 function updateChat(msg, context){
 
-    // twitchEmoji.add('roselol', function( err ){
-    //     if( !err )
-    //         console.log("Able to use custom channel emotes.")
-    // });
-
     console.log(context)
 
     var newLine = document.createElement('li');
@@ -47,10 +43,23 @@ function updateChat(msg, context){
     username.classList.add('username');
     message.classList.add('message');
 
+
+    // Text Shadow
+    var colorRGB = hexToRgb(context['color'])
+    // luminance formula (0-255) 0 = black, 255 = white
+    Y = 0.2126*colorRGB[0] + 0.7152*colorRGB[1] + 0.0722*colorRGB[2]
+    if(Y < 128){
+        // white if color is dark
+        //username.classList.add('shadow-white')
+    } else {
+        // black if color is light
+        //username.classList.add('shadow-black')
+    }
+
     username.style.color = context['color'];
-    message.style.marginLeft = "5px";
 
     username.innerText = context['display-name'];
+    twitchEmoji.add('roselol')
     message.innerHTML = twitchEmoji.parse(msg, { emojiSize : 'small' });
 
     newLine.append(username)

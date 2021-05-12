@@ -8,9 +8,17 @@
     text-shadow: 1.5px 0 0 black, -1.5px 0 0 black, 0 1.5px 0 black, 0 -1.5px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
     color: white;
     overflow-wrap: normal;
-    opacity: 0.60;
+    opacity: .7;
   }
-  
+
+.shadow-white {
+  text-shadow: 1.5px 0 0 white, -1.5px 0 0 white, 0 1.5px 0 white, 0 -1.5px 0 white, 1px 1px white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
+}
+
+.shadow-black{
+  text-shadow: 1.5px 0 0 black, -1.5px 0 0 black, 0 1.5px 0 black, 0 -1.5px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+}
+
   #chat-box::-webkit-scrollbar{
     display: none;
   }
@@ -22,4 +30,8 @@
 
 .line{
   display: flex;
+}
+
+.message {
+  margin-left: 5px;
 }

@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "hex-to-rgb": "^1.0.1",
     "jquery": "^3.6.0",
     "tmi.js": "^1.8.3",
     "twitch-emoji": "^0.2.209"

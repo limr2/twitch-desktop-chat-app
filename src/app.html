@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>twichat</title>
+    <link rel="stylesheet" href="./css/app.css">
+  </head>
+  <body>
+    <div class="options">
+
+      <div class="container" id="channel-options">
+        <legend>Channel</legend>
+        <input type="text" id="channelname">
+        <button id="btn-update-channel" type="button"class="btn">UPDATE</button>
+      </div>
+
+      <div class="container" id="font-options">
+        <legend>Font Options</legend>
+        <input id="font-size-range" type="range" min="12" max="48" step="2" onchange="updateFontRange()" />
+        <input id="font-size-amount" type="number" min="12" max="48" step="2" onchange="updateFontAmount()" />
+        <span class="line">roselol: Kappa</span>
+      </div>
+
+      <div class="container" id="nickname-options">
+        <legend>Nicknames</legend>
+        <button id="btnClick" type="button"class="btn">update pos</button>
+      </div>
+
+      <div class="container" id="chat-location">
+        <legend>Window</legend>
+        <label>pos-x</label>
+        <input id="chat-x" type="number" min="0" max="1920" value="0" step="120"/>
+        <label>pos-y</label>
+        <input id="chat-y" type="number" min="0" max="1080" value="0" step="120"/>
+
+        <label>width</label>
+        <input id="chat-width" type="number" min="0" max="1920" value="0" step="120"/>
+        <label>height</label>
+        <input id="chat-height" type="number" min="0" max="1080" value="0" step="120"/>
+        <label class="switch">
+          <input id="toggle-debug" type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="container">
+        <legend>Show Chat</legend>
+        <label class="switch">
+          <input id="toggle-chat" type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    <script src='./js/app.js'></script>
+  </body>
+</html>
