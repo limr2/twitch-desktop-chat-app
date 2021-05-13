@@ -59,9 +59,7 @@ function increment(){
     idleTime += 1
     console.log(`idle for ${idleTime}`)
     if(idleTime > 10) {
-        $('.chat-text').fadeOut('slow', function(){
-
-        })
+        $('.chat-text').fadeOut()
     }
 }
 
@@ -72,11 +70,10 @@ function resetIdle(){
 
 // Updates the chat display
 function updateChat(msg, context){
-    
+    $('.chat-text').fadeIn()
     // when chat message is sent, resets the idle
     resetIdle()
 
-    $('.chat-text').css('opacity', config.get('opacity'))
 
 
     var newLine = document.createElement('li');

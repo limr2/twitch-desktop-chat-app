@@ -123,8 +123,8 @@ function openChat() {
         height: h,
         minWidth: 200,
         minHeight:200,
-        transparent: true,
-        frame: false,
+        // transparent: true,
+        // frame: false,
         webPreferences: {
            nodeIntegration: true,
             contextIsolation: false,
@@ -210,6 +210,10 @@ function loadConfig(){
 
     if(config.get('chat-height')){
         $('#chat-height').val(config.get('chat-height'))
+    }
+
+    if(config.get('idle-time')){
+        //    
     }
 }
 
