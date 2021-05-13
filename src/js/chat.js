@@ -46,7 +46,6 @@ function onConnectedHandler (addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
 }
 
-
 var idleTime = 0
 
 // every 1000ms runs increment
@@ -57,8 +56,8 @@ var idleInterval = setInterval(function(){
 // increment function
 function increment(){
     idleTime += 1
-    console.log(`idle for ${idleTime}`)
     if(idleTime > 10) {
+        idleTime = 11
         $('.chat-text').fadeOut()
     }
 }
@@ -71,10 +70,9 @@ function resetIdle(){
 // Updates the chat display
 function updateChat(msg, context){
     $('.chat-text').fadeIn()
+    
     // when chat message is sent, resets the idle
     resetIdle()
-
-
 
     var newLine = document.createElement('li');
     var username = document.createElement('span');
@@ -100,6 +98,7 @@ function updateChat(msg, context){
     }
 }
 
+// parses emotes
 function parseEmotes(newLine, msg, context){
     var messageDiv = document.createElement('div')
     messageDiv.classList.add('message-container')
@@ -155,6 +154,7 @@ function parseEmotes(newLine, msg, context){
     
 }
 
+// returns span of text
 function getMsgHTML(msg){
     var message = document.createElement('span');
     message.classList.add('message');
@@ -162,7 +162,7 @@ function getMsgHTML(msg){
     return message
 }
 
-
+// returns img with the emote 
 function getEmoteHTML(emoteId){
     var emoteLink = 'https://static-cdn.jtvnw.net/emoticons/v1/'
     var emoteSize = '1.0'

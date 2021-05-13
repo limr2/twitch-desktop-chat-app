@@ -48,7 +48,7 @@ $('#font-size-text').on('change', function(){
 
 function changeFontSize(size){
     console.log('Changing Font Size to ' + size + 'px...')
-    $('.chat-text').css('font-size', size + 'px')
+    $('.chat-text-example').css('font-size', size + 'px')
     config.set('font-size', size)
     if(winChat) winChat.webContents.executeJavaScript(`
         document.getElementById('chat-box').style['font-size'] = ${size} + 'px';
@@ -70,7 +70,7 @@ $('#opacity-text').on('change', function(){
 
 function changeOpacity(opacity){
     console.log('Changing Opacity to ' + opacity + '...')
-    $('.chat-text').css('opacity', opacity)
+    $('.chat-text-example').css('opacity', opacity)
     config.set('opacity', opacity)
     if(winChat) winChat.webContents.executeJavaScript(`
         document.getElementById('chat-box').style['opacity'] = ${opacity};
@@ -84,7 +84,7 @@ $('#font-color').on('input', function(){
 
 function changeColor(color){
     console.log('Changing Color to ' + color + '...')
-    $('.chat-text').css('color', color)
+    $('.chat-text-example').css('color', color)
     $('.chat-username').css('color', '#a7499c')
     config.set('color', color)
     if(winChat) winChat.webContents.executeJavaScript(`
@@ -123,8 +123,8 @@ function openChat() {
         height: h,
         minWidth: 200,
         minHeight:200,
-        // transparent: true,
-        // frame: false,
+        transparent: true,
+        frame: false,
         webPreferences: {
            nodeIntegration: true,
             contextIsolation: false,
@@ -151,7 +151,6 @@ function openChat() {
     winChat.on('move', function(){
         updateWinPos()
     })
-
 
     winChat.on('resize', function(){
         updateWinPos()
