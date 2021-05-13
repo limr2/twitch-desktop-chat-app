@@ -8,7 +8,7 @@ const opts = {
         username: 'roseiol',
         password: 'oauth:99ie9cyt71r4r36kqdzk32k3oxx7du'
     },
-    channels: ['qartho']
+    channels: ['roselol']
 };
 // Create a client with our options
 const client = new tmi.client(opts);
