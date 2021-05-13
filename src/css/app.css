@@ -96,11 +96,11 @@ button:focus {
 
 .options {
   display: grid;
+  grid-template-rows: 1fr 1fr 2fr 1fr;
   width: 100%;
 }
 
 .options > div {
-  height: 75px;
   margin: 5px;
   padding: 5px;
   border: 2px solid black;

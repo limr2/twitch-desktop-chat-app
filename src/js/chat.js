@@ -49,24 +49,21 @@ function onConnectedHandler (addr, port) {
 // Updates the chat display
 function updateChat(msg, context){
 
-    console.log(context)
 
     var newLine = document.createElement('li');
     var username = document.createElement('span');
-    var message = document.createElement('span');
 
     newLine.classList.add('line');
     username.classList.add('username');
-    message.classList.add('message');
 
     username.style.color = context['color'];
 
     username.innerText = context['display-name'];
-    message.innerText = msg;
 
     newLine.append(username)
     newLine.append(":")
-    newLine.append(message)
+
+    parseEmotes(newLine, msg, context)
 
     $('#chat-box').append(newLine)
     $('#chat-box').animate({scrollTop: $('#chat-box').get(0).scrollHeight}, 0)
@@ -77,15 +74,78 @@ function updateChat(msg, context){
     }
 }
 
-const hideBorder = () => {
-    console.log("Hiding Border...")
-    $('#body-chat').removeClass('body-unlocked')
+function parseEmotes(newLine, msg, context){
+    var messageDiv = document.createElement('div')
+    messageDiv.classList.add('message-container')
+
+    var emotes = context['emotes']
+    
+    // Ignore if no emotes in message
+    if(!emotes) {
+        var span = getMsgHTML(msg)
+        messageDiv.append(span)
+        newLine.append(messageDiv)
+        return msg
+    }
+
+    console.log('Parsing Emotes...')
+    console.log('Emotes: ' + emotes)
+
+    var emoteNames = {}
+
+    for(var id in emotes){
+        range = emotes[id][0].split('-')
+        range[1] = parseInt(range[1]) + 1
+        emoteName = msg.substring(range[0], range[1])
+        emoteNames[emoteName] = id
+    }
+
+    console.log(emoteNames)
+    
+    splitMsg = msg.split(' ')
+
+    workingMsg = " "
+    console.log(splitMsg)
+    splitMsg.forEach(function(word){
+        if(emoteNames[word]){
+            if(workingMsg){
+                span = getMsgHTML(workingMsg)
+                messageDiv.append(span)
+                workingMsg = ""
+            }
+            img = getEmoteHTML(emoteNames[word])
+            messageDiv.append(img)
+        } else {
+            workingMsg += word + " "
+        }
+    })
+    if(workingMsg) {
+        span = getMsgHTML(workingMsg)
+        messageDiv.append(span)
+    }
+    
+    console.log('msgdiv :)')
+    newLine.append(messageDiv)
+    
 }
 
-module.exports.document = document
-
-const showBorder = () => {
-    console.log("Showing Border...")
-    $('#body-chat').addClass('body-unlocked')
+function getMsgHTML(msg){
+    var message = document.createElement('span');
+    message.classList.add('message');
+    message.innerText = msg;
+    return message
 }
-module.exports.showBorder = showBorder
+
+
+function getEmoteHTML(emoteId){
+    var emoteLink = 'https://static-cdn.jtvnw.net/emoticons/v1/'
+    var emoteSize = '1.0'
+
+    var img = document.createElement('img')
+    img.classList.add('emote')
+    h = parseInt(config.get('font-size'))+10
+    img.style.height = h + 'px'
+    img.src = emoteLink + emoteId + '/' + emoteSize
+
+    return img
+}
