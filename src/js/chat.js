@@ -1,25 +1,32 @@
 var tmi = require('tmi.js');
 window.$ = window.jquery = require('jquery')
-var hexToRgb = require('hex-to-rgb');
+var config = require('electron-json-config')
 
-// Define configuration options
-const opts = {
-    identity: {
-        username: 'roseiol',
-        password: 'oauth:99ie9cyt71r4r36kqdzk32k3oxx7du'
-    },
-    channels: ['roselol']
-};
-// Create a client with our options
-const client = new tmi.client(opts);
+
+function readChat(){
+    channelName = config.get('channel')
+    if(!channelName) return
+    console.log("Reading " + channelName + "'s chat...")
+    // Define configuration options
+    const opts = {
+        identity: {
+            username: 'roseiol',
+            password: 'oauth:99ie9cyt71r4r36kqdzk32k3oxx7du'
+        },
+        channels: [channelName]
+    };
+    // Create a client with our options
+    const client = new tmi.client(opts);
  
-// Register our event handlers (defined below)
-client.on('message', onMessageHandler);
-client.on('connected', onConnectedHandler);
+    // Register our event handlers (defined below)
+    client.on('message', onMessageHandler);
+    client.on('connected', onConnectedHandler);
  
-// Connect to Twitch:
-client.connect();
- 
+    // Connect to Twitch:
+
+    if(channelName) client.connect();
+}
+
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
     updateChat(msg, context)

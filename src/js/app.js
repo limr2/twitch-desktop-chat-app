@@ -38,9 +38,24 @@ $('#toggle-lock').on('change', function(){
 
 });
 
+$('#btn-update-channel').on('click', function(){
+    var channelName = $('#channelname').val()
+
+    if(channelName) {
+        config.set('channel', channelName)
+    }
+})
+
 // opens chat window
 function openChat() {
-    console.log('Opening Chat...')
+    channelName = config.get('channel')
+
+    if(!channelName){
+        alert('No channel selected')
+        return
+    }
+
+    console.log("Opening " + channelName  + "'s Chat...")
 
     const remote = require('electron').remote;
     const path = require('path')
@@ -75,6 +90,9 @@ function openChat() {
         winChat.setIgnoreMouseEvents(true)
         winChat.webContents.executeJavaScript(`document.getElementById('chat-body').classList.remove('frame')`)
     } 
+
+    winChat.webContents.executeJavaScript(`readChat()`)
+
     winChat.on('move', function(){
         updateWinPos()
     })
@@ -110,7 +128,7 @@ loadConfig()
 function loadConfig(){
     console.log('Loading Config...')
     if(config.get('channel')){
-        // update channel
+        $('#channelname').val(config.get('channel'))
     }
 
     if(config.get('font-size')){
