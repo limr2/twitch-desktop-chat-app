@@ -22,8 +22,17 @@ function readChat(){
     client.on('message', onMessageHandler);
     client.on('connected', onConnectedHandler);
  
-    // Connect to Twitch:
+    // Load persisted settings
+    if(config.get('opacity'))
+        $('.chat-text').css('opacity', config.get('opacity'))
+    
+    if(config.get('font-size'))
+        $('.chat-text').css('font-size', config.get('font-size') + 'px')
 
+    if(config.get('color'))
+        $('.chat-text').css('color', config.get('color'))
+
+    // Connect to Twitch:
     if(channelName) client.connect();
 }
 

@@ -15,10 +15,26 @@
       </div>
 
       <div class="container" id="font-options">
-        <legend>Font Options</legend>
-        <input id="font-size-range" type="range" min="12" max="48" step="2" onchange="updateFontRange()" />
-        <input id="font-size-amount" type="number" min="12" max="48" step="2" onchange="updateFontAmount()" />
-        <span class="line">roselol: Kappa</span>
+        <div id="font-size-options">
+          <label>Size</label>
+          <input id="font-size-slider" type="range" min="12" max="44" step="2"/>
+          <input id="font-size-text" type="number" min="12" max="44" step="2"/>
+        </div>
+        <div id="opacity-options">
+          <label>Opacity</label>
+          <input id="opacity-slider" type="range" min="0" max="1" step=".1"/>
+          <input id="opacity-text" type="number" min="0" max="1" step=".1"/>
+        </div>
+
+        <div id="color-options">
+          <input type="color" id="font-color">
+        </div>
+
+        <div id="font-example">
+          <div id="example-text">
+            <span class="chat-text chat-username" style="color: #a7499c">roselol</span><span class="chat-text">: hello!!!</span>
+          </div>
+        </div>
       </div>
 
       <div class="container" id="nickname-options">
@@ -26,16 +42,6 @@
       </div>
 
       <div class="container" id="chat-location">
-        <legend>Window</legend>
-        <label>pos-x</label>
-        <input id="chat-x" type="number" min="0" max="1920" value="0" step="120"/>
-        <label>pos-y</label>
-        <input id="chat-y" type="number" min="0" max="1080" value="0" step="120"/>
-
-        <label>width</label>
-        <input id="chat-width" type="number" min="0" max="1920" value="500" step="120"/>
-        <label>height</label>
-        <input id="chat-height" type="number" min="0" max="1080" value="600" step="120"/>
         
       </div>
 

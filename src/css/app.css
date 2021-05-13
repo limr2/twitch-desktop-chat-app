@@ -19,6 +19,63 @@ button {
   padding: 10px 20px;
 }
 
+input[type=number]{
+  width: 40px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+}
+
+#font-options {
+  display: grid;
+  grid-template-columns: 4fr 1fr 6fr;
+  grid-template-rows: 37px 37px;
+  column-gap: 5px;
+  grid-template-areas:
+    "size color example"
+    "opacity color example"
+}
+
+#font-size-options{
+  grid-area: size;
+}
+#opacity-options{
+  grid-area: opacity;
+}
+#font-example{
+  grid-area: example;
+  width:100%;
+  display: flex;
+  place-content: center;
+}
+
+#example-text {
+  margin: 0 auto;
+}
+
+
+#color-options{
+  grid-area: color;
+  width:100%;
+  display: flex;
+  place-content: center;
+}
+
+#font-color{
+  margin: 0 auto;
+  height: 45px;
+}
+
+
+.chat-text {
+  font-family: Inter,Roobert,Helvetica Neue,Helvetica,Arial,sans-serif;
+  text-shadow: 1.5px 0 0 black, -1.5px 0 0 black, 0 1.5px 0 black, 0 -1.5px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+  font-size: 18px;
+  color: white;
+  opacity: 1;
+}
+
 button:hover {
   outline: 0;
   background-color: #dabfff;

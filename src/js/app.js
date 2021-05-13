@@ -31,12 +31,67 @@ $('#toggle-lock').on('change', function(){
     console.log('Unlocking Chat Window...')
     if(winChat) winChat.setIgnoreMouseEvents(false)
     if(winChat) winChat.webContents.executeJavaScript(`document.getElementById('chat-body').classList.add('frame')`)
-    chatDocument.showBorder()
     config.set('locked', false)
-
-    console.log(winChat.webContents)
-
 });
+
+$('#font-size-slider').on('input', function(){
+    size = $('#font-size-slider').val()
+    changeFontSize(size)
+    $('#font-size-text').val(size)
+})
+
+$('#font-size-text').on('change', function(){
+    size = $('#font-size-text').val()
+    changeFontSize(size)
+    $('#font-size-slider').val(size)
+})
+
+function changeFontSize(size){
+    console.log('Changing Font Size to ' + size + 'px...')
+    $('.chat-text').css('font-size', size + 'px')
+    config.set('font-size', size)
+    if(winChat) winChat.webContents.executeJavaScript(`
+        document.getElementById('chat-box').style['font-size'] = ${size} + 'px';
+  `)
+    console.log(config.get('font-size') + 'px')
+}
+
+$('#opacity-slider').on('input', function(){
+    opacity = $('#opacity-slider').val()
+    changeOpacity(opacity)
+    $('#opacity-text').val(opacity)
+})
+
+$('#opacity-text').on('change', function(){
+    opacity = $('#opacity-text').val()
+    changeOpacity(opacity)
+    $('#opacity-slider').val(opacity)
+})
+
+function changeOpacity(opacity){
+    console.log('Changing Opacity to ' + opacity + '...')
+    $('.chat-text').css('opacity', opacity)
+    config.set('opacity', opacity)
+    if(winChat) winChat.webContents.executeJavaScript(`
+        document.getElementById('chat-box').style['opacity'] = ${opacity};
+  `)
+}
+
+$('#font-color').on('input', function(){
+    color = $('#font-color').val()
+    changeColor(color)
+})
+
+function changeColor(color){
+    console.log('Changing Color to ' + color + '...')
+    $('.chat-text').css('color', color)
+    $('.chat-username').css('color', '#a7499c')
+    config.set('color', color)
+    if(winChat) winChat.webContents.executeJavaScript(`
+        document.getElementById('chat-box').style['color'] = '${color}';
+  `)
+
+}
 
 $('#btn-update-channel').on('click', function(){
     var channelName = $('#channelname').val()
@@ -60,8 +115,8 @@ function openChat() {
     const remote = require('electron').remote;
     const path = require('path')
     const BrowserWindow = remote.BrowserWindow;
-    var w = parseInt($('#chat-width').val())
-    var h = parseInt($('#chat-height').val())
+    var w = parseInt(config.get('chat-width'))
+    var h = parseInt(config.get('chat-height'))
 
     winChat = new BrowserWindow({
         width: w,
@@ -81,8 +136,8 @@ function openChat() {
 
     // and load the index.html of the app.
 
-    var x = parseInt($('#chat-x').val())
-    var y = parseInt($('#chat-y').val())
+    var x = parseInt(config.get('chat-x'))
+    var y = parseInt(config.get('chat-y'))
 
     winChat.setPosition(x,y)
     winChat.loadFile(path.join(__dirname, 'chat.html'));
@@ -109,20 +164,6 @@ function closeChat(){
     winChat = null;
 }
 
-// syncronize font slider and text input
-function updateFontAmount(){
-    var slider = $('#range-max-ram').val()
-    $('#amount-max-ram').val(slider)
-}
-function updateFontRange(){
-    var amount = $('#amount-max-ram').val()
-    $('#range-max-ram').val(amount)
-}
-
-$('#btnClick').on('click', function(){ 
-    updateWinPos()
-});
-
 loadConfig()
 
 function loadConfig(){
@@ -132,15 +173,26 @@ function loadConfig(){
     }
 
     if(config.get('font-size')){
-        // update font size
+        size = config.get('font-size')
+        changeFontSize(size)
+        $('#font-size-text').val(size)
+        $('#font-size-slider').val(size)
     }
 
     if(config.get('opacity')){
-        // update opacity
+        opacity = config.get('opacity')
+        changeOpacity(opacity)
+        $('#opacity-text').val(opacity)
+        $('#opacity-slider').val(opacity)
+    }
+
+    if(config.get('color')){
+        color = config.get('color')
+        changeColor(color)
+        $('#font-color').val(color)
     }
 
     if(config.get('locked')){
-        console.log('locked')
         $('#toggle-lock').prop('checked', true)
     }
 
