@@ -46,8 +46,37 @@ function onConnectedHandler (addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
 }
 
+
+var idleTime = 0
+
+// every 1000ms runs increment
+var idleInterval = setInterval(function(){
+    increment()
+}, 1000)
+
+// increment function
+function increment(){
+    idleTime += 1
+    console.log(`idle for ${idleTime}`)
+    if(idleTime > 10) {
+        $('.chat-text').fadeOut('slow', function(){
+
+        })
+    }
+}
+
+// resets idle
+function resetIdle(){
+    idleTime = 0
+}
+
 // Updates the chat display
 function updateChat(msg, context){
+    
+    // when chat message is sent, resets the idle
+    resetIdle()
+
+    $('.chat-text').css('opacity', config.get('opacity'))
 
 
     var newLine = document.createElement('li');
