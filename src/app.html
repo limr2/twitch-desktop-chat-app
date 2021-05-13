@@ -23,7 +23,6 @@
 
       <div class="container" id="nickname-options">
         <legend>Nicknames</legend>
-        <button id="btnClick" type="button"class="btn">update pos</button>
       </div>
 
       <div class="container" id="chat-location">
@@ -34,21 +33,27 @@
         <input id="chat-y" type="number" min="0" max="1080" value="0" step="120"/>
 
         <label>width</label>
-        <input id="chat-width" type="number" min="0" max="1920" value="0" step="120"/>
+        <input id="chat-width" type="number" min="0" max="1920" value="500" step="120"/>
         <label>height</label>
-        <input id="chat-height" type="number" min="0" max="1080" value="0" step="120"/>
-        <label class="switch">
-          <input id="toggle-debug" type="checkbox">
-          <span class="slider"></span>
-        </label>
+        <input id="chat-height" type="number" min="0" max="1080" value="600" step="120"/>
+        
       </div>
 
       <div class="container">
-        <legend>Show Chat</legend>
-        <label class="switch">
-          <input id="toggle-chat" type="checkbox">
-          <span class="slider"></span>
-        </label>
+        <div>
+          <legend>Show Chat</legend>
+          <label class="switch">
+            <input id="toggle-chat" type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div>
+          <legend>Lock Window</legend>
+          <label class="switch">
+            <input id="toggle-lock" type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
       </div>
     </div>
     <script src='./js/app.js'></script>

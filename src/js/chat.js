@@ -8,7 +8,7 @@ const opts = {
         username: 'roseiol',
         password: 'oauth:99ie9cyt71r4r36kqdzk32k3oxx7du'
     },
-    channels: ['roselol']
+    channels: ['qartho']
 };
 // Create a client with our options
 const client = new tmi.client(opts);
@@ -43,24 +43,10 @@ function updateChat(msg, context){
     username.classList.add('username');
     message.classList.add('message');
 
-
-    // Text Shadow
-    var colorRGB = hexToRgb(context['color'])
-    // luminance formula (0-255) 0 = black, 255 = white
-    Y = 0.2126*colorRGB[0] + 0.7152*colorRGB[1] + 0.0722*colorRGB[2]
-    if(Y < 128){
-        // white if color is dark
-        //username.classList.add('shadow-white')
-    } else {
-        // black if color is light
-        //username.classList.add('shadow-black')
-    }
-
     username.style.color = context['color'];
 
     username.innerText = context['display-name'];
-    twitchEmoji.add('roselol')
-    message.innerHTML = twitchEmoji.parse(msg, { emojiSize : 'small' });
+    message.innerText = msg;
 
     newLine.append(username)
     newLine.append(":")
@@ -69,7 +55,21 @@ function updateChat(msg, context){
     $('#chat-box').append(newLine)
     $('#chat-box').animate({scrollTop: $('#chat-box').get(0).scrollHeight}, 0)
 
-    if($("#chat-box li").length > 20){
+
+    if($("#chat-box li").length > 120){
         $('#chat-box li').first().remove();
     }
 }
+
+const hideBorder = () => {
+    console.log("Hiding Border...")
+    $('#body-chat').removeClass('body-unlocked')
+}
+
+module.exports.document = document
+
+const showBorder = () => {
+    console.log("Showing Border...")
+    $('#body-chat').addClass('body-unlocked')
+}
+module.exports.showBorder = showBorder

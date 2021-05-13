@@ -1,8 +1,8 @@
 const { windowsStore } = require('process')
-
+var config = require('electron-json-config')
 window.$ = window.jquery = require('jquery')
-
-var win = null;
+var chatDocument = require('./js/chat.js')
+var winChat = null;
 
 // toggle opening/closing chat window
 $('#toggle-chat').on('change', function(){
@@ -19,6 +19,24 @@ $('#toggle-chat').on('change', function(){
 
 });
 
+// toggle resizing and moving chat window
+$('#toggle-lock').on('change', function(){
+    if(this.checked){
+        console.log('Locking Chat Window...')
+        if(winChat) winChat.setIgnoreMouseEvents(true)
+        if(winChat) winChat.webContents.executeJavaScript(`document.getElementById('chat-body').classList.remove('frame')`)
+        config.set('locked', true)
+        return
+    } 
+    console.log('Unlocking Chat Window...')
+    if(winChat) winChat.setIgnoreMouseEvents(false)
+    if(winChat) winChat.webContents.executeJavaScript(`document.getElementById('chat-body').classList.add('frame')`)
+    chatDocument.showBorder()
+    config.set('locked', false)
+
+    console.log(winChat.webContents)
+
+});
 
 // opens chat window
 function openChat() {
@@ -30,9 +48,11 @@ function openChat() {
     var w = parseInt($('#chat-width').val())
     var h = parseInt($('#chat-height').val())
 
-    win = new BrowserWindow({
+    winChat = new BrowserWindow({
         width: w,
         height: h,
+        minWidth: 200,
+        minHeight:200,
         transparent: true,
         frame: false,
         webPreferences: {
@@ -42,55 +62,33 @@ function openChat() {
         }
     });
   
-    win.setAlwaysOnTop(true, 'screen');
-    win.setIgnoreMouseEvents(true)
+    winChat.setAlwaysOnTop(true, 'screen');
 
     // and load the index.html of the app.
 
     var x = parseInt($('#chat-x').val())
     var y = parseInt($('#chat-y').val())
-    console.log("x: " + x)
-    console.log("y: " + y)
 
-    win.setPosition(x,y)
-    win.loadFile(path.join(__dirname, 'chat.html'));
-}
+    winChat.setPosition(x,y)
+    winChat.loadFile(path.join(__dirname, 'chat.html'));
+    if(config.get('locked')) {
+        winChat.setIgnoreMouseEvents(true)
+        winChat.webContents.executeJavaScript(`document.getElementById('chat-body').classList.remove('frame')`)
+    } 
+    winChat.on('move', function(){
+        updateWinPos()
+    })
 
-function openDebugChat() {
-    console.log('Opening Chat...')
 
-    const remote = require('electron').remote;
-    const path = require('path')
-    const BrowserWindow = remote.BrowserWindow;
-
-    
-    var w = parseInt($('#chat-width').val())
-    var h = parseInt($('#chat-height').val())
-    
-    win = new BrowserWindow({
-        width: w,
-        height: h,
-        webPreferences: {
-           nodeIntegration: true,
-            contextIsolation: false,
-            enableRemoteModule: true
-        }
-    });
-
-    var x = parseInt($('#chat-x').val())
-    var y = parseInt($('#chat-y').val())
-
-    console.log("x: " + x)
-    console.log("y: " + y)
-    win.setPosition(x,y)
-    win.loadFile(path.join(__dirname, 'chat.html'));
-    win.webContents.openDevTools();
+    winChat.on('resize', function(){
+        updateWinPos()
+    })
 }
 
 // closes chat window
 function closeChat(){
-    win.close();
-    win = null;
+    winChat.close();
+    winChat = null;
 }
 
 // syncronize font slider and text input
@@ -107,16 +105,58 @@ $('#btnClick').on('click', function(){
     updateWinPos()
 });
 
-win
+loadConfig()
+
+function loadConfig(){
+    console.log('Loading Config...')
+    if(config.get('channel')){
+        // update channel
+    }
+
+    if(config.get('font-size')){
+        // update font size
+    }
+
+    if(config.get('opacity')){
+        // update opacity
+    }
+
+    if(config.get('locked')){
+        console.log('locked')
+        $('#toggle-lock').prop('checked', true)
+    }
+
+    if(config.get('chat-x')){
+        $('#chat-x').val(config.get('chat-x'))
+    }
+
+    if(config.get('chat-y')){
+        $('#chat-y').val(config.get('chat-y'))
+    }
+
+    if(config.get('chat-width')){
+        $('#chat-width').val(config.get('chat-width'))
+    }
+
+    if(config.get('chat-height')){
+        $('#chat-height').val(config.get('chat-height'))
+    }
+}
 
 function updateWinPos(){
-    if(!win) return
-    bounds = win.getBounds()
-    $('#chat-x').val(bounds.x)
-    $('#chat-y').val(bounds.y)
-    $('#chat-width').val(bounds.width)
-    $('#chat-height').val(bounds.height)
+    if(!winChat) return
+    bounds = winChat.getBounds()
 
-    console.log(bounds.x)
+    $('#chat-x').val(bounds.x)
+    config.set('chat-x', bounds.x)
+
+    $('#chat-y').val(bounds.y)
+    config.set('chat-y', bounds.y)
+
+    $('#chat-width').val(bounds.width)
+    config.set('chat-width', bounds.width)
+
+    $('#chat-height').val(bounds.height)
+    config.set('chat-height', bounds.height)
 
 }
