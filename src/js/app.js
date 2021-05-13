@@ -7,15 +7,13 @@ var winChat = null;
 // toggle opening/closing chat window
 $('#toggle-chat').on('change', function(){
     if(this.checked){
-        if($('#toggle-debug').prop('checked')){
-            openDebugChat()
-        } else {
-            openChat()
-        }
+        openChat()
+        config.set('opened', true)
         return
     } 
     console.log("Closing Chat...")
     closeChat()
+    config.set('opened', false)
 
 });
 
@@ -193,6 +191,11 @@ function loadConfig(){
 
     if(config.get('locked')){
         $('#toggle-lock').prop('checked', true)
+    }
+
+    if(config.get('opened')){
+        openChat()
+        $('#toggle-chat').prop('checked', true)
     }
 
     if(config.get('chat-x')){
