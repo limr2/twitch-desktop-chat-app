@@ -1,7 +1,6 @@
 const { windowsStore } = require('process')
 var config = require('electron-json-config')
 window.$ = window.jquery = require('jquery')
-var chatDocument = require('./js/chat.js')
 var winChat = null;
 
 // toggle opening/closing chat window
@@ -45,13 +44,12 @@ $('#font-size-text').on('change', function(){
 })
 
 function changeFontSize(size){
-    console.log('Changing Font Size to ' + size + 'px...')
+    //console.log('Changing Font Size to ' + size + 'px...')
     $('.chat-text-example').css('font-size', size + 'px')
     config.set('font-size', size)
     if(winChat) winChat.webContents.executeJavaScript(`
         document.getElementById('chat-box').style['font-size'] = ${size} + 'px';
   `)
-    console.log(config.get('font-size') + 'px')
 }
 
 $('#opacity-slider').on('input', function(){
@@ -67,7 +65,7 @@ $('#opacity-text').on('change', function(){
 })
 
 function changeOpacity(opacity){
-    console.log('Changing Opacity to ' + opacity + '...')
+    //console.log('Changing Opacity to ' + opacity + '...')
     $('.chat-text-example').css('opacity', opacity)
     config.set('opacity', opacity)
     if(winChat) winChat.webContents.executeJavaScript(`
@@ -81,7 +79,7 @@ $('#font-color').on('input', function(){
 })
 
 function changeColor(color){
-    console.log('Changing Color to ' + color + '...')
+    //console.log('Changing Color to ' + color + '...')
     $('.chat-text-example').css('color', color)
     $('.chat-username').css('color', '#a7499c')
     config.set('color', color)
@@ -136,15 +134,12 @@ function openChat() {
 
     var x = parseInt(config.get('chat-x'))
     var y = parseInt(config.get('chat-y'))
-
     winChat.setPosition(x,y)
     winChat.loadFile(path.join(__dirname, 'chat.html'));
     if(config.get('locked')) {
         winChat.setIgnoreMouseEvents(true)
         winChat.webContents.executeJavaScript(`document.getElementById('chat-body').classList.remove('frame')`)
-    } 
-
-    winChat.webContents.executeJavaScript(`readChat()`)
+    }
 
     winChat.on('move', function(){
         updateWinPos()
@@ -152,6 +147,10 @@ function openChat() {
 
     winChat.on('resize', function(){
         updateWinPos()
+    })
+
+    winChat.on('close', function(){
+        winChat.webContents.executeJavaScript(`twitch.disconnect()`)
     })
 }
 
@@ -200,18 +199,26 @@ function loadConfig(){
 
     if(config.get('chat-x')){
         $('#chat-x').val(config.get('chat-x'))
+    } else {
+        config.set('chat-x', 0)
     }
 
     if(config.get('chat-y')){
         $('#chat-y').val(config.get('chat-y'))
+    } else {
+        config.set('chat-y', 0)
     }
 
     if(config.get('chat-width')){
         $('#chat-width').val(config.get('chat-width'))
+    }  else {
+        config.set('chat-width', 400)
     }
 
     if(config.get('chat-height')){
         $('#chat-height').val(config.get('chat-height'))
+    }  else {
+        config.set('chat-height', 600)
     }
 
     if(config.get('idle-time')){

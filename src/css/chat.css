@@ -3,7 +3,7 @@
   overflow-y: auto;
   padding: 5px;
   margin: 0;
-  height: calc(100% - 4px);
+  height: calc(100% - 5px);
 }
 
 .chat-text {
@@ -47,14 +47,14 @@ html{
 body {
   display: flex;
   margin: 0;
-  height: 99vh;
+  height: calc(100vh - 7px);
   padding: 0;
   -webkit-app-region: no-drag;
 }
 
 .frame {
-  outline: 2px solid black;
-  border: 2px solid white;
+  border: 3px solid white;
+  border-style: groove
 }
 
 #chat-container{
