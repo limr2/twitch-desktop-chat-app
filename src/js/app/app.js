@@ -10,7 +10,8 @@ var debug = false
 $(function(){
     // TODO --
     // check if chat was previously opened in last instance and auto-open chat if applicable
-    // check if chat window was locked in last instance and auto-lock if applicable
+    // check if chat window was unlocked in last instance and auto-unlock if applicable
+    //    probably have locked be init state, for cleaner animation (dont want to show border, then insta hide it if locked)
     //    ( this data is already save in config ['opened', 'locked'])
 })
 
