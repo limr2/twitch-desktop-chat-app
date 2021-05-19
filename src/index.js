@@ -1,5 +1,9 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+var config = require('electron-json-config')
+
+var mainWindow = null
+var winBounds = null
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -8,9 +12,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+  mainWindow = new BrowserWindow({
     minWidth: 800,
     minHeight: 600,
     webPreferences: {
@@ -19,10 +21,35 @@ const createWindow = () => {
       enableRemoteModule: true,
     }
   });
+
+  winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 800, height: 600})
+  mainWindow.setBounds(winBounds)
+
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'app.html'));
-  mainWindow.setPosition(800,200)
+  
 
+  mainWindow.on('move', function(){
+    saveWinBounds()
+  })
+
+  // remembers window position and size after resize
+  mainWindow.on('resize', function(){
+    saveWinBounds()
+  })
+
+
+
+  mainWindow.on('close', function(){
+    
+    mainWindow.webContents.executeJavaScript(`
+      if(winChat) winChat.close();
+    `)
+    mainWindow.webContents.executeJavaScript(`
+      savePersistedSettings();
+    `)
+    
+  })
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 };
@@ -51,3 +78,9 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here
+
+const saveWinBounds = () => {
+  if(!mainWindow) return
+  winBounds = mainWindow.getBounds()
+  config.set('window.app.bounds', winBounds)
+}

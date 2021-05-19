@@ -33,6 +33,7 @@ const connect = (channelName) => {
 module.exports.connect = connect
 
 const disconnect = () => {
+    console.log('disconnecting')
     if(client)
         client.disconnect()
     client =  null
