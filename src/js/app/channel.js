@@ -8,7 +8,10 @@ $(function(){
 
 // reads font data from config
 function loadConfig() {
+    msg = `Loading Channel:`
     channelName = config.get('channel', null)
+    msg += `\n - Name: ${channelName}`
+    console.log(msg)
     setPersistedSettings()
 }
 

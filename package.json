@@ -1,7 +1,7 @@
 {
-  "name": "Twitch-Chat-Overlay",
-  "productName": "Twitch Chat Overlay",
-  "version": "0.1.0",
+  "name": "twichat",
+  "productName": "twichat",
+  "version": "0.1.1",
   "description": "A customizable twitch chat overlay for your games or any app",
   "main": "src/index.js",
   "scripts": {

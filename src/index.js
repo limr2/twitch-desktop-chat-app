@@ -13,6 +13,8 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    show: false,
+    backgroundColor: '#2c2a4a',
     minWidth: 800,
     minHeight: 600,
     webPreferences: {
@@ -21,6 +23,10 @@ const createWindow = () => {
       enableRemoteModule: true,
     }
   });
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
 
   winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 800, height: 600})
   mainWindow.setBounds(winBounds)

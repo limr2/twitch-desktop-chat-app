@@ -53,6 +53,7 @@ const open = (debug) => {
     if(!channel){
         alert('Please specify a channel')
         $('#toggle-chat').prop('checked', false)
+        config.set('window.chat.opened', false)
         // TODO --
         // code to focus/highlight the channel input
         return

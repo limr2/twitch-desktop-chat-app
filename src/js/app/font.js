@@ -19,16 +19,18 @@ module.exports.setWin = setWin
 
 // reads font data from config
 function loadConfig() {
+    msg = `Loading Font:`
+
     size = parseInt(config.get('font.size', 20))
-    console.log(`Loaded Size: ${size}`)
+    msg += `\n - Size: ${size}px`
 
     color = config.get('font.color', '#ffffff')
-    console.log('loadconfig color: ' + color)
-    console.log(`Loaded Color: ${color}`)
+
+    msg += `\n - Color: ${color}`
 
     opacity = parseFloat(config.get('font.opacity', 1))
-    console.log(`Loaded Opacity: ${opacity}`)
-
+    msg += `\n - Opacity: ${opacity*100}%`
+    console.log(msg)
     setPersistedSettings()
 }
 
@@ -36,19 +38,16 @@ function loadConfig() {
 function setPersistedSettings() {
 
     // font size
-    console.log(`Setting Size: ${size}`)
     $('#font-size-slider').val(size)
     $('#font-size-text').val(size)
     $('.chat-text-example').css('font-size', size + 'px')
 
     // font opacity
-    console.log(`Setting Opacity: ${opacity}`)
     $('#opacity-slider').val(opacity)
     $('#opacity-text').val(opacity)
     $('.chat-text-example').css('opacity', opacity)
 
     // font color
-    console.log(`Setting Color: ${color}`)
     $('#font-color').val(color)
     updateColor()
 
