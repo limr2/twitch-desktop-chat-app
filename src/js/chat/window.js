@@ -16,7 +16,7 @@ $(function(){
 const loadPersistedSettings = () =>{
 
     channel = config.get('channel', null)
-    winBounds = config.get('window.chat.bounds', {x: 0, y: 0, width: 400, height: 600})
+    winBounds = config.get('window.chat.bounds', {x: 25, y: 25, width: 400, height: 600})
     locked = config.get('window.chat.locked', false)
     
 }
