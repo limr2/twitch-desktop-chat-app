@@ -1,18 +1,10 @@
 var channelName = null
 
-var winChat = null
-
 // runs on initialization
 $(function(){
     loadConfig()
     listenChanges()
 })
-
-const setWin = (win) => {
-    winChat = win
-}
-
-module.exports.setWin = setWin
 
 // reads font data from config
 function loadConfig() {
