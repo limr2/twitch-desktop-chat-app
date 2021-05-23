@@ -29,23 +29,14 @@ function loadConfig() {
 
 // populates persisted settings to app interface 
 function setPersistedsettings() {
-    if(opened) {
-        $('#toggle-chat').prop('checked', true)
-        winChat.open(debug)
-        font.setWin(winChat.getWin())
-    }
-
-    if(locked) {
-        $('#toggle-lock').prop('checked', true)
-        winChat.lock()
-    }
+    
 }
 
 
 // toggle opening/closing chat window
 $('#toggle-chat').on('change', function(){
     if(this.checked){
-        winChat.open(debug)
+        winChat.open(channel.name(), debug)
         font.setWin(winChat.getWin())
         config.set('window.chat.opened', true)
         return

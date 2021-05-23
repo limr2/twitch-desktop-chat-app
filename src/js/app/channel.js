@@ -29,7 +29,7 @@ const saveConfig = () => {
 
 module.exports.saveConfig = saveConfig
 
-const listenChanges = () => {
+function listenChanges(){
 
     // Updates when typing in channel input 
     $('#channelname').on('input', function(){
@@ -40,6 +40,10 @@ const listenChanges = () => {
     $('#btn-update-channel').on('click', function(){
         saveConfig()
     })
-} 
+}
 
-module.exports.listenChanges = listenChanges
+const name = () => {
+    return channelName
+}
+
+module.exports.name = name

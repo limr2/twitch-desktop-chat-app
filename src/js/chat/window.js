@@ -10,18 +10,44 @@ channel = null
 
 //
 $(function(){
-    loadPersistedSettings()
+    loadConfig()
+    setPersistedSettings()
 })
 
-const loadPersistedSettings = () =>{
+const loadConfig = () =>{
+
+    msg = `Loading Chat Window:`
 
     channel = config.get('channel', null)
+    msg += `\n- Channel: ${channel}`
+
+    opened = config.get('window.chat.opened', false)
+    msg += `\n- Opened: ${opened}`
+
     winBounds = config.get('window.chat.bounds', {x: 25, y: 25, width: 400, height: 600})
-    locked = config.get('window.chat.locked', false)
+    msg += `\n- Bounds: ${winBounds}`
     
+    locked = config.get('window.chat.locked', false)
+    msg += `\n- Locked: ${locked}`
+    
+    console.log(msg)
 }
 
-module.exports.loadPersistedSettings = loadPersistedSettings
+module.exports.loadConfig = loadConfig
+
+function setPersistedSettings() {
+    if(opened) {
+        $('#toggle-chat').prop('checked', true)
+        winChat.open(channel, debug)
+        font.setWin(winChat.getWin())
+    }
+
+    if(locked) {
+        $('#toggle-lock').prop('checked', true)
+        winChat.lock()
+    }
+}
+
 
 // saves data to config
 const saveConfig = () => {
@@ -35,10 +61,10 @@ const saveConfig = () => {
 module.exports.saveConfig = saveConfig
 
 // opens chat window
-const open = (debug) => {
+const open = (channel, debug) => {
 
     // makes sure settings are up to date
-    loadPersistedSettings()
+    loadConfig()
 
     var t = true
     var f = false
