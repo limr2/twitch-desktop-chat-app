@@ -1,18 +1,30 @@
-# twichat
+- twichat -
+QarthO | roselol
 
-Todo:
-  <!-- 1. Window that shows twitch chat [x] -->
-  <!-- 2. Setting to change channel [] -->
-  <!-- 3. Move/resize and lock screen  [] -->
-  <!-- 4. Make window transparent [x] -->
-  5. Make app look pretty (app icon/apperance) []
-  <!-- 6. Font size/options [] -->
-  7. Make app downloadable []
-  8. Allow nicknames []
-  <!-- 9. Color on username/subscriber [x] -->
-  <!-- 10. Make messages clickable [] -->
-  11. Sub/Mod/Broadcaster badge []
-  12. Options for fading/etc
-  13. Highlight messages that are directed to channel
+Customizable overlay for a specific twitch channel's chat.
 
-username nickname show/hide highlight
+Todos:
+  - Desktop App:
+      1. Design:
+          - Logo
+          - Color Schemes
+          - Frameless window for custom menu bar
+          - Custom right click menu 
+      2. Installable:
+          - Need license
+          - In-app update feature
+          - Host install online, (potentially github? idk)
+      3. User options
+          - Nicknames
+          - Hide user
+          - change user's color
+          - highlight
+      4. Highlight words/phrases
+      5. Fading options/ui
+      6. Get channel pfp
+      7. 
+  - Overlay:
+      1. disable right click when unlocked
+      2. potentially show channel name when unlocked
+      3. 
+

@@ -29,6 +29,9 @@ const loadConfig = () =>{
     
     locked = config.get('window.chat.locked', false)
     msg += `\n- Locked: ${locked}`
+
+    debug = config.get('window.chat.debug', false)
+    msg += `\n- Debug: ${debug}`
     
     console.log(msg)
 }
@@ -38,13 +41,17 @@ module.exports.loadConfig = loadConfig
 function setPersistedSettings() {
     if(opened) {
         $('#toggle-chat').prop('checked', true)
-        winChat.open(channel, debug)
+        winChat.open(debug)
         font.setWin(winChat.getWin())
     }
 
-    if(locked) {
+    if(!locked) {
         $('#toggle-lock').prop('checked', true)
-        winChat.lock()
+        winChat.unlock()
+    }
+
+    if(debug) {
+        $('#toggle-debug').prop('checked', true)
     }
 }
 
@@ -61,7 +68,7 @@ const saveConfig = () => {
 module.exports.saveConfig = saveConfig
 
 // opens chat window
-const open = (channel, debug) => {
+const open = (debug) => {
 
     // makes sure settings are up to date
     loadConfig()

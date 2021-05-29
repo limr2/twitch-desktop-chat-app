@@ -21,13 +21,11 @@ function setPersistedSettings() {
 }
 
 // saves current instance's channel to config
-const saveConfig = () => {
+function saveConfig() {
 
     config.set('channel', channelName)
 
 }
-
-module.exports.saveConfig = saveConfig
 
 function listenChanges(){
 

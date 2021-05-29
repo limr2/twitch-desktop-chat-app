@@ -36,7 +36,7 @@ function setPersistedsettings() {
 // toggle opening/closing chat window
 $('#toggle-chat').on('change', function(){
     if(this.checked){
-        winChat.open(channel.name(), debug)
+        winChat.open(debug)
         font.setWin(winChat.getWin())
         config.set('window.chat.opened', true)
         return
@@ -48,10 +48,12 @@ $('#toggle-chat').on('change', function(){
 
 $('#toggle-debug').on('change', function(){
     if(this.checked){
+        config.set('window.chat.debug', true)
         console.log
         debug = true
         return
     }
+    config.set('window.chat.debug', false)
     debug = false
 
 });
