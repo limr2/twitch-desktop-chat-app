@@ -50,5 +50,3 @@ function onMessageHandler (target, context, msg, self) {
 function onConnectedHandler (addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
 }
-
-

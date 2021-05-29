@@ -19,19 +19,19 @@ const loadConfig = () =>{
     msg = `Loading Chat Window:`
 
     channel = config.get('channel', null)
-    msg += `\n- Channel: ${channel}`
+    msg += `\n - Channel: ${channel}`
 
     opened = config.get('window.chat.opened', false)
-    msg += `\n- Opened: ${opened}`
+    msg += `\n - Opened: ${opened}`
 
     winBounds = config.get('window.chat.bounds', {x: 25, y: 25, width: 400, height: 600})
-    msg += `\n- Bounds: ${winBounds}`
+    msg += `\n - Bounds: ${winBounds}`
     
     locked = config.get('window.chat.locked', false)
-    msg += `\n- Locked: ${locked}`
+    msg += `\n - Locked: ${locked}`
 
     debug = config.get('window.chat.debug', false)
-    msg += `\n- Debug: ${debug}`
+    msg += `\n - Debug: ${debug}`
     
     console.log(msg)
 }
@@ -168,10 +168,10 @@ module.exports.lock = lock
 const unlock = () => {
 
     // enables user interaction with chat window (can move/resize)
-    win.setIgnoreMouseEvents(false)
+    if(win) win.setIgnoreMouseEvents(false)
 
     // shows the border
-    win.webContents.executeJavaScript(`document.getElementById('chat-body').classList.add('frame')`)
+    if(win) win.webContents.executeJavaScript(`document.getElementById('chat-body').classList.add('frame')`)
     
     // updates config
     config.set('window.chat.locked', false)

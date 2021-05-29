@@ -32,7 +32,7 @@ function setPersistedSettings(){
 
 // Updates the chat display
 function updateChat(msg, context){
-
+    
     idle.reset()
 
     var newLine = document.createElement('li');

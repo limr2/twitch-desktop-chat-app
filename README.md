@@ -25,6 +25,7 @@ Todos:
       7. 
   - Overlay:
       1. disable right click when unlocked
-      2. potentially show channel name when unlocked
-      3. 
+      2. potentially show channel name when unlocked window
+      3. text alignment on overflow (adjust left)
+      4. user badges (mod, sub, etc)
 

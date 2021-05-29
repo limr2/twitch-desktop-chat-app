@@ -67,6 +67,4 @@ $('#toggle-lock').on('change', function(){
     } 
     winChat.unlock()
     config.set('window.chat.locked', false)
-});
-
-
+})
