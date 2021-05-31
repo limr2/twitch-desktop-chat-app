@@ -168,3 +168,31 @@ input:checked + .slider:before {
   height: 50%;
   vertical-align: middle;
 }
+
+.nav-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  background-color: #907ad6;
+}
+
+.nav i{
+  font-size: 40px;
+}
+
+.nav {
+  text-align: center;
+}
+
+.menu {
+  display: none
+}
+
+.selected-nav {
+  border: 2px black;
+  border-radius: 10px;
+  background-color: #6a5b9e;
+}
+
+.opened-menu {
+  display: grid !important
+}

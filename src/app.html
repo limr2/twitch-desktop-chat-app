@@ -6,65 +6,114 @@
     <link rel="stylesheet" href="./css/app.css">
   </head>
   <body>
-    <div class="options">
-
-      <div class="container" id="channel-options">
-        <legend>Channel</legend>
-        <input type="text" id="channelname">
-        <button id="btn-update-channel" type="button"class="btn">UPDATE</button>
+    <div class="nav-bar">
+      <div class="nav" id="nav-main">
+        <i class="bi-chat-text"></i>
       </div>
+      <div class="nav" id="nav-idle">
+        <i class="bi-clock-history"></i>
+      </div>
+      <div class="nav" id="nav-font">
+        <i class="bi-fonts"></i>
+      </div>
+      <div class="nav" id="nav-users">
+        <i class="bi-person"></i>
+      </div>
+      <div class="nav" id="nav-info">
+        <i class="bi-info-circle"></i>
+      </div>
+      <script src="./js/app/nav.js"></script>
+    </div>
 
-      <div class="container" id="font-options">
-        <div id="font-size-options">
-          <label>Size</label>
-          <input id="font-size-slider" type="range" min="12" max="44" step="2"/>
-          <input id="font-size-text" type="number" min="12" max="44" step="2"/>
-        </div>
-        <div id="opacity-options">
-          <label>Opacity</label>
-          <input id="opacity-slider" type="range" min="0" max="1" step=".1"/>
-          <input id="opacity-text" type="number" min="0" max="1" step=".1"/>
-        </div>
-
-        <div id="color-options">
-          <i class="bi-house-door-fill" style="font-size: 40px"></i>
-          <input type="color" id="font-color" value="#ffffff">
-        </div>
-
-        <div id="font-example">
-          <div id="example-text">
-            <span class="chat-text-example chat-username" style="color: #a7499c">roselol</span><span class="chat-text-example">: hello!!!</span>
+    <div class="container-menu">
+      <div class="menu" id="menu-main">
+        MAIN MENU
+        <div class="container" id="channel-options">
+          <legend>Channel</legend>
+          <input type="text" id="channelname">
+          <button id="btn-update-channel" type="button"class="btn">UPDATE</button>
+          <div>
+            <legend>Show Chat</legend>
+            <label class="switch">
+              <input id="toggle-chat" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div>
+            <legend>Lock Window</legend>
+            <label class="switch">
+              <input id="toggle-lock" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div>
+            <legend>Debug</legend>
+            <label class="switch">
+              <input id="toggle-debug" type="checkbox">
+              <span class="slider"></span>
+            </label>
           </div>
         </div>
       </div>
-
-      <div class="container" id="nickname-options">
-        <legend>Chat Users</legend>
+      <div class="menu" id="menu-idle">
+        IDLE MENU<br>
+        *idle timer editor<br>
+        *on/off<br>
+        *little window previewing fade
+      </div>
+      <div class="menu" id="menu-font">
+        FONT MENU
+        <div class="container" id="font-options">
+          <div id="font-size-options">
+            <label>Size</label>
+            <input id="font-size-slider" type="range" min="12" max="44" step="2"/>
+            <input id="font-size-text" type="number" min="12" max="44" step="2"/>
+          </div>
+          <div id="opacity-options">
+            <label>Opacity</label>
+            <input id="opacity-slider" type="range" min="0" max="1" step=".1"/>
+            <input id="opacity-text" type="number" min="0" max="1" step=".1"/>
+          </div>
+          <div id="color-options">
+            <input type="color" id="font-color" value="#ffffff">
+          </div>
+          <div id="font-example">
+            <div id="example-text">
+              <span class="chat-text-example chat-username" style="color: #a7499c">roselol</span><span class="chat-text-example">: hello!!!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="menu" id="menu-users">
+        USERS MENU<br>
+        * add user or keyword<br>
+        * USERS TABLE<br>
+          table columns:<br>
+            - user/keyword<br>
+            - nickname/replacement<br>
+            - highlighted?<br>
+            - change color?<br>
+            - hide entire message/keyword
+      </div>
+      <div class="menu" id="menu-info">
+        INFO MENU<br>
+        * app version<br>
+        * authors<br>
+        * link to website/repo<br>
+        * debug options<br>
+        * toggle dev tools etc<br>
+        * contact us<br>
+        * report bug<br>
+        * uninstall<br>
+        * show app file location<br>
+        * all that nonsense that isnt really apart of the app, but users might need
       </div>
 
-      <div class="container">
-        <div>
-          <legend>Show Chat</legend>
-          <label class="switch">
-            <input id="toggle-chat" type="checkbox">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div>
-          <legend>Lock Window</legend>
-          <label class="switch">
-            <input id="toggle-lock" type="checkbox">
-            <span class="slider"></span>
-          </label>
-        </div>
-        <div>
-          <legend>Debug</legend>
-          <label class="switch">
-            <input id="toggle-debug" type="checkbox">
-            <span class="slider"></span>
-          </label>
-        </div>
-      </div>
+    </div>
+
+
+    <div class="options">
+
     </div>
     <script src='./js/app/app.js'></script>
   </body>

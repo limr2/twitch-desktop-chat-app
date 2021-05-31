@@ -47,7 +47,6 @@ const createWindow = () => {
 
 
   mainWindow.on('close', function(){
-    
     mainWindow.webContents.executeJavaScript(`
       if(winChat) winChat.close();
     `)

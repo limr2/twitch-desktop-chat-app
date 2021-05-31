@@ -28,4 +28,7 @@ Todos:
       2. potentially show channel name when unlocked window
       3. text alignment on overflow (adjust left)
       4. user badges (mod, sub, etc)
+      5. locking/unlocking from previously closed instance more fluid
+      6. translucent gray background on overlay (https://gyazo.com/64296064a090093336e31a2194cd69ce)
+      7. 
 
