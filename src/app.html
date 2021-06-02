@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>twichat</title>
     <link rel="stylesheet" href="./css/app.css">
+    <link rel="stylesheet" href="./css/nav.css">
   </head>
   <body>
-    <div class="nav-bar">
+    <nav>
       <div class="nav" id="nav-main">
         <i class="bi-chat-text"></i>
       </div>
@@ -23,11 +24,18 @@
         <i class="bi-info-circle"></i>
       </div>
       <script src="./js/app/nav.js"></script>
-    </div>
+    </nav>
 
     <div class="container-menu">
       <div class="menu" id="menu-main">
-        MAIN MENU
+        MAIN MENU<br>
+        * apps name/logo<br>
+        * big pfp of selected channel<br>
+        * 2 switches<br>
+          - turn on/off chat window<br>
+          - lock chat window
+
+        
         <div class="container" id="channel-options">
           <legend>Channel</legend>
           <input type="text" id="channelname">
@@ -63,6 +71,10 @@
       </div>
       <div class="menu" id="menu-font">
         FONT MENU
+        * size slider
+        * opacity slider
+        * color selecter
+        * preview
         <div class="container" id="font-options">
           <div id="font-size-options">
             <label>Size</label>
@@ -106,7 +118,7 @@
         * report bug<br>
         * uninstall<br>
         * show app file location<br>
-        * all that nonsense that isnt really apart of the app, but users might need
+        * all that nonsense that isnt really apart of the app, but users might want
       </div>
 
     </div>
