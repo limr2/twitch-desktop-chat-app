@@ -7,11 +7,10 @@ Page setup
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  padding: 32px;
-  padding-top: 10px;
+  margin: 0;
   overflow: hidden;
   color: white;
-  background-color: #2c2a4a;
+  background-color: #5A5A63;
 }
 
 
@@ -156,28 +155,9 @@ input:checked + .slider:before {
   vertical-align: middle;
 }
 
-.nav-bar {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  background-color: #907ad6;
-}
-
-.nav i{
-  font-size: 40px;
-}
-
-.nav {
-  text-align: center;
-}
 
 .menu {
   display: none
-}
-
-.selected-nav {
-  border: 2px black;
-  border-radius: 10px;
-  background-color: #6a5b9e;
 }
 
 .opened-menu {

@@ -8,8 +8,12 @@ $(function(){
     open(current)
 })
 
-$('.nav').on('click', function(){
-    menu = this.id.split('-')[1]
+$('nav').on('click', function(event){
+    if($(event.target).is('div')) {
+        return
+    }
+    menu = event.target.id.split('-')[1]
+    console.log(menu)
     open(menu)
 })
 
@@ -17,13 +21,13 @@ $('.nav').on('click', function(){
 function open(menu){
     close(current)
     console.log('Opening: ' + menu)
-    $('#nav-' + menu).addClass('selected-nav')
+    $('.animation').addClass('selected-' + menu)
     $('#menu-' + menu).addClass('opened-menu')
     current = menu
 }
 
 function close(menu){
     console.log('Closing: ' + menu)
-    $('#nav-' + menu).removeClass('selected-nav')
+    $('.animation').removeClass('selected-' + current)
     $('#menu-' + menu).removeClass('opened-menu')
 }

@@ -8,23 +8,15 @@
   </head>
   <body>
     <nav>
-      <div class="nav" id="nav-main">
-        <i class="bi-chat-text"></i>
-      </div>
-      <div class="nav" id="nav-idle">
-        <i class="bi-clock-history"></i>
-      </div>
-      <div class="nav" id="nav-font">
-        <i class="bi-fonts"></i>
-      </div>
-      <div class="nav" id="nav-users">
-        <i class="bi-person"></i>
-      </div>
-      <div class="nav" id="nav-info">
-        <i class="bi-info-circle"></i>
-      </div>
+      <i class="bi-chat-text" id="nav-main"></i>
+      <i class="bi-fonts" id="nav-font"></i>
+      <i class="bi-person" id="nav-users"></i>
+      <i class="bi-clock-history" id="nav-idle"></i>
+      <i class="bi-info-circle" id="nav-info"></i>
+      <div class="animation selected-main"></div>
       <script src="./js/app/nav.js"></script>
     </nav>
+      
 
     <div class="container-menu">
       <div class="menu" id="menu-main">
@@ -66,6 +58,7 @@
       <div class="menu" id="menu-idle">
         IDLE MENU<br>
         *idle timer editor<br>
+        *how fast it fades<br>
         *on/off<br>
         *little window previewing fade
       </div>
