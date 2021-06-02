@@ -23,6 +23,8 @@ nav{
 nav i{
  font-size: 30px;
  width: 100%;
+ height: calc(100% - 5px);
+ padding-top: 5px;
  text-transform: uppercase;
  color: white;
  text-decoration: none;
