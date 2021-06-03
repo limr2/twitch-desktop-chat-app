@@ -8,7 +8,6 @@ Todos:
       1. Design:
           - Logo
           - Color Schemes
-          - Frameless window for custom menu bar
           - Custom right click menu 
       2. Installable:
           - Need license
@@ -21,14 +20,17 @@ Todos:
           - highlight
       4. Highlight words/phrases
       5. Fading options/ui
-      6. Get channel pfp
-      7. 
+      6. Get channel pfp (currently hardcoded tyler1s pfp)
+      7. rewrite code of the opening/locking buttons (really buggy rn)
+      8. 
   - Overlay:
       1. disable right click when unlocked
       2. potentially show channel name when unlocked window
       3. text alignment on overflow (adjust left)
       4. user badges (mod, sub, etc)
       5. locking/unlocking from previously closed instance more fluid
-      6. translucent gray background on overlay (https://gyazo.com/64296064a090093336e31a2194cd69ce)
-      7. 
+      6. optional translucent gray background on overlay (https://gyazo.com/64296064a090093336e31a2194cd69ce)
+      7. fix bug of border sometimes not showing when unlocked
+
+      
 
