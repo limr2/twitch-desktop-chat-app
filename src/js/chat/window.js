@@ -98,12 +98,12 @@ const open = (debug) => {
     const remote = require('electron').remote;
     const path = require('path')
     const BrowserWindow = remote.BrowserWindow;
-
     win = new BrowserWindow({
         minWidth: 200,
         minHeight: 200,
         transparent: t,
         frame: f,
+        icon: path.join(__dirname, '../../img/icon.png'),
         webPreferences: {
            nodeIntegration: true,
             contextIsolation: false,

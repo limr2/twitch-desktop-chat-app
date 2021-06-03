@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="./css/nav.css">
   </head>
   <body>
+    <div class="titlebar">
+      <img src="./img/mini-icon.png">
+      <i class="app-name">twichat</i>
+      <button class="bi-dash-lg" id="title-min" type="button" aria-label="minimize"></button>
+      <button class="bi-square" id="title-full" type="button" aria-label="toggle fullscreen"></button>
+      <button class="bi-x-lg" id="title-close" type="button" aria-label="close"></button>
+    </div>
     <nav>
       <i class="bi-chat-text" id="nav-main"></i>
       <i class="bi-fonts" id="nav-font"></i>
@@ -16,45 +23,26 @@
       <div class="animation selected-main"></div>
       <script src="./js/app/nav.js"></script>
     </nav>
-      
-
-    <div class="container-menu">
-      <div class="menu" id="menu-main">
-        MAIN MENU<br>
-        * apps name/logo<br>
-        * big pfp of selected channel<br>
-        * 2 switches<br>
-          - turn on/off chat window<br>
-          - lock chat window
-
-        
-        <div class="container" id="channel-options">
-          <legend>Channel</legend>
-          <input type="text" id="channelname">
-          <button id="btn-update-channel" type="button"class="btn">UPDATE</button>
-          <div>
-            <legend>Show Chat</legend>
-            <label class="switch">
-              <input id="toggle-chat" type="checkbox">
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div>
-            <legend>Lock Window</legend>
-            <label class="switch">
-              <input id="toggle-lock" type="checkbox">
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div>
-            <legend>Debug</legend>
-            <label class="switch">
-              <input id="toggle-debug" type="checkbox">
-              <span class="slider"></span>
-            </label>
-          </div>
+    <div class="menu" id="menu-main">
+      <div class="channel-logo">
+        <img id="channel-logo" src="https://static-cdn.jtvnw.net/jtv_user_pictures/f3591dbe4ee3d94b-profile_image-300x300.png">
+      </div>
+      <div class="channel-input">
+        <div class=" input-group mb-3">
+          <input id="channelname" type="text" class="form-control" placeholder="Channel" aria-label="Twitch Channel" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="button" id="btn-update-channel">Update</button>
         </div>
       </div>
+      
+      <div class="launch-overlay">
+          <button type="button" id="toggle-chat" class="bi-power overlay-closed"></button>
+          
+          <button type="button" id="toggle-lock" class="bi-lock"></button>
+          
+          <!-- <button type="button" id="toggle-debug" class="bi-pencil-fill"></button> -->
+     </div>
+      
+    </div>
       <div class="menu" id="menu-idle">
         IDLE MENU<br>
         *idle timer editor<br>
@@ -101,6 +89,7 @@
             - hide entire message/keyword
       </div>
       <div class="menu" id="menu-info">
+        <button id="btn-devtools">Developer Tools</button>
         INFO MENU<br>
         * app version<br>
         * authors<br>

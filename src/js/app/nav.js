@@ -9,7 +9,7 @@ $(function(){
 })
 
 $('nav').on('click', function(event){
-    if($(event.target).is('div')) {
+    if(!$(event.target).is('i')) {
         return
     }
     menu = event.target.id.split('-')[1]

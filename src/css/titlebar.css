@@ -1,0 +1,52 @@
+/* Variables */
+:root{
+  --title-background: #2e2e35;
+  --title-hover: #494950;
+  --title-close: red;
+}
+
+
+/* titlebar */
+.titlebar {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    -webkit-box-shadow: none;
+    background-color: var(--title-background);
+    border: none;
+    display: grid;
+    grid-template-columns: 25px calc(100% - 135px) 35px 35px 35px;
+    grid-template-rows: 100%;
+    justify-content: end;
+    height: 20px;
+}
+ 
+/* logo/name */
+.titlebar .app-name{
+    font-size: 14px;
+}
+
+/* min/max/close buttons */
+.titlebar button{
+    -webkit-app-region: no-drag;
+    background-color: transparent;
+    background: none;
+    color: white;
+    border: none;
+    padding-right: 5;
+    padding-left: 5;
+    padding-top: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    font-size: 12px;
+}
+
+/* hover min/max buttons */
+#title-min:hover, #title-full:hover{
+    background-color: var(--title-hover);
+}
+
+/* hover close button */
+#title-close:hover{
+    background: var(--title-close);
+}

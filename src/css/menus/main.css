@@ -1,0 +1,71 @@
+:root{
+    --button-hover: #484496;
+    --button-background: #424254;
+}
+
+#menu-main{
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 1fr 1fr;
+    justify-content: center;
+}
+
+.channel-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.channel-logo img{
+    margin: auto;
+    height: 70%;
+    border-radius: 10%;
+}
+
+.channel-input{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.channel-input button{
+    background: var(--button-background);
+    color: white;
+}
+
+.channel-input button:hover{
+    background: var(--button-hover)
+}
+
+.channel-input button:focus{
+    background: var(--button-hover)
+}
+
+.launch-overlay{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-gap: 5%;
+}
+
+.launch-overlay button{
+    border: 2px solid #2c2828;
+    border-radius: 10px;
+    width: auto;
+    height: 100%;
+    font-size: 50px;
+    background: var(--button-background)
+}
+
+.launch-overlay button:hover{
+    background: var(--button-hover);
+}
+
+.overlay-opened {
+    color: rgb(8, 209, 8);
+}
+
+.overlay-closed {
+    color: red;
+}

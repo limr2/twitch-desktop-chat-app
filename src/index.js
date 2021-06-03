@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-var config = require('electron-json-config')
+var config = require('electron-json-config');
+const { main } = require('@popperjs/core');
 
 var mainWindow = null
 var winBounds = null
@@ -15,8 +16,10 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     show: false,
     backgroundColor: '#2c2a4a',
-    minWidth: 800,
-    minHeight: 600,
+    minWidth: 425,
+    minHeight: 550,
+    frame: false,
+    icon: path.join(__dirname, 'img/icon.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -28,7 +31,7 @@ const createWindow = () => {
     mainWindow.show()
   })
 
-  winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 800, height: 600})
+  winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 425, height: 550})
   mainWindow.setBounds(winBounds)
 
   // and load the index.html of the app.
