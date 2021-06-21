@@ -16,8 +16,8 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     show: false,
     backgroundColor: '#2c2a4a',
-    minWidth: 425,
-    minHeight: 550,
+    minWidth: 600,
+    minHeight: 400,
     frame: false,
     icon: path.join(__dirname, 'img/icon.png'),
     webPreferences: {

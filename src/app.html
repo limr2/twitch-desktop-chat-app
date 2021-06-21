@@ -14,33 +14,28 @@
       <button class="bi-square" id="title-full" type="button" aria-label="toggle fullscreen"></button>
       <button class="bi-x-lg" id="title-close" type="button" aria-label="close"></button>
     </div>
-    <nav>
-      <i class="bi-chat-text" id="nav-main"></i>
-      <i class="bi-fonts" id="nav-font"></i>
-      <i class="bi-person" id="nav-users"></i>
-      <i class="bi-clock-history" id="nav-idle"></i>
-      <i class="bi-info-circle" id="nav-info"></i>
-      <div class="animation selected-main"></div>
-      <script src="./js/app/nav.js"></script>
-    </nav>
+
+
     <div class="menu" id="menu-main">
       <div class="channel-logo">
-        <img id="channel-logo" src="https://static-cdn.jtvnw.net/jtv_user_pictures/f3591dbe4ee3d94b-profile_image-300x300.png">
+        <img id="channel-logo" src="https://static-cdn.jtvnw.net/jtv_user_pictures/f3591dbe4ee3d94b-profile_image-300x300.png" >
       </div>
+
       <div class="channel-input">
         <div class=" input-group mb-3">
           <input id="channelname" type="text" class="form-control" placeholder="Channel" aria-label="Twitch Channel" aria-describedby="button-addon2">
           <button class="btn btn-outline-secondary" type="button" id="btn-update-channel">Update</button>
         </div>
       </div>
-      
+
       <div class="launch-overlay">
-          <button type="button" id="toggle-chat" class="bi-power overlay-closed"></button>
-          
-          <button type="button" id="toggle-lock" class="bi-lock"></button>
-          
-          <!-- <button type="button" id="toggle-debug" class="bi-pencil-fill"></button> -->
-     </div>
+        <button type="button" id="toggle-chat" class="bi-power overlay-closed"></button>
+        <button type="button" id="toggle-lock" class="bi-lock"></button>
+      </div>
+      
+      
+    </div>
+      
       
     </div>
       <div class="menu" id="menu-idle">
@@ -109,6 +104,15 @@
     <div class="options">
 
     </div>
+    <nav>
+      <i class="bi-chat-text" id="nav-main"></i>
+      <i class="bi-fonts" id="nav-font"></i>
+      <i class="bi-person" id="nav-users"></i>
+      <i class="bi-clock-history" id="nav-idle"></i>
+      <i class="bi-info-circle" id="nav-info"></i>
+      <div class="animation selected-main"></div>
+      <script src="./js/app/nav.js"></script>
+    </nav>
     <script src='./js/app/app.js'></script>
   </body>
 </html>

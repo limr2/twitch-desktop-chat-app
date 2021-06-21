@@ -1,23 +1,23 @@
 :root{
-    --button-hover: #484496;
-    --button-background: #424254;
+    --button-hover: #AD71D9;
+    --button-background: #2E2C33;
 }
 
 #menu-main{
-    grid-template-columns: 1fr;
-    grid-template-rows: 3fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
     justify-content: center;
 }
 
 .channel-logo{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: left;
 }
 
 .channel-logo img{
     margin: auto;
-    height: 70%;
+    height: 50%;
     border-radius: 10%;
 }
 
@@ -43,18 +43,17 @@
 .launch-overlay{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     grid-gap: 5%;
 }
 
 .launch-overlay button{
-    border: 2px solid #2c2828;
+    border: 2px solid #232229;
     border-radius: 10px;
-    width: auto;
+    width: 100%;
     height: 100%;
     font-size: 50px;
+    font-weight: bold;
     background: var(--button-background)
 }
 
@@ -63,9 +62,9 @@
 }
 
 .overlay-opened {
-    color: rgb(8, 209, 8);
+    color: #FFFFFF;
 }
 
 .overlay-closed {
-    color: red;
+    color: #595562;
 }

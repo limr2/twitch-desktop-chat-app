@@ -24,7 +24,7 @@ const loadConfig = () =>{
     opened = config.get('window.chat.opened', false)
     msg += `\n - Opened: ${opened}`
 
-    winBounds = config.get('window.chat.bounds', {x: 25, y: 25, width: 400, height: 600})
+    winBounds = config.get('window.chat.bounds', {x: 25, y: 25, width: 500, height: 600})
     msg += `\n - Bounds: ${winBounds}`
     
     locked = config.get('window.chat.locked', false)
@@ -113,6 +113,7 @@ const open = (debug) => {
     
     // opens dev tools if in debug mode
     if(debug) win.webContents.openDevTools();
+
 
     // forces window to always be in front
     win.setAlwaysOnTop(true, 'screen');
