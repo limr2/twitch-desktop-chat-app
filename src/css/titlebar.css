@@ -14,7 +14,7 @@
     background-color: var(--title-background);
     border: none;
     display: grid;
-    grid-template-columns: 25px calc(100% - 135px) 35px 35px 35px;
+    grid-template-columns: 25px calc(100% - 100px) 35px 35px;
     grid-template-rows: 100%;
     justify-content: end;
     height: 20px;

@@ -5,7 +5,6 @@ var font = require('./js/app/font.js')
 var channel = require('./js/app/channel.js')
 var titlebar = require('./js/app/titlebar.js')
 var winChat = require('./js/chat/window.js')
-var info = require('./js/app/info.js')
 
 
 var opened = null
@@ -23,7 +22,6 @@ $(function(){
 // reads data from config
 function loadConfig() {
 
-    opened = config.get('window.chat.opened', false)
     locked = config.get('window.chat.locked', false)
 
     setPersistedsettings()
@@ -34,43 +32,6 @@ function setPersistedsettings() {
     
 }
 
-
-// toggle opening/closing chat window
-$('#toggle-chat').on('click', function(){
-
-    if(!$(this).data('opened')){
-        winChat.open(debug)
-        font.setWin(winChat.getWin())
-        config.set('window.chat.opened', true)
-        
-        $(this).removeClass('overlay-closed')
-        $(this).addClass('overlay-opened')
-        $(this).data('opened', true)
-    } else {
-        
-        winChat.close()
-        config.set('window.chat.opened', false)
-        
-        $(this).removeClass('overlay-opened')
-        $(this).addClass('overlay-closed')
-        $(this).data('opened', false)
-
-    }
-
-});
-
-$('#toggle-debug').on('change', function(){
-    if(this.checked){
-        config.set('window.chat.debug', true)
-        console.log
-        debug = true
-        return
-    }
-    config.set('window.chat.debug', false)
-    debug = false
-
-});
-
 // toggle resizing and moving chat window
 $('#toggle-lock').on('click', function(){
 
@@ -79,8 +40,8 @@ $('#toggle-lock').on('click', function(){
         if(winChat) winChat.lock()
         config.set('window.chat.locked', true)
         
-        $(this).removeClass('bi-unlock')
-        $(this).addClass('bi-lock')
+        $(this).removeClass('unlocked')
+        $(this).addClass('locked')
         $(this).data('locked', true)
         return
     } else {
@@ -88,8 +49,8 @@ $('#toggle-lock').on('click', function(){
         if(winChat) winChat.unlock()
         config.set('window.chat.locked', false)
         
-        $(this).removeClass('bi-lock')
-        $(this).addClass('bi-unlock')
+        $(this).removeClass('locked')
+        $(this).addClass('unlocked')
         $(this).data('locked', false)
         return
     }

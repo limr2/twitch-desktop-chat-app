@@ -11,6 +11,8 @@ channel = null
 //
 $(function(){
     loadConfig()
+    winChat.open(debug)
+    font.setWin(winChat.getWin())
     setPersistedSettings()
 })
 
@@ -21,17 +23,11 @@ const loadConfig = () =>{
     channel = config.get('channel', null)
     msg += `\n - Channel: ${channel}`
 
-    opened = config.get('window.chat.opened', false)
-    msg += `\n - Opened: ${opened}`
-
     winBounds = config.get('window.chat.bounds', {x: 25, y: 25, width: 500, height: 600})
     msg += `\n - Bounds: ${winBounds}`
     
     locked = config.get('window.chat.locked', false)
     msg += `\n - Locked: ${locked}`
-
-    debug = config.get('window.chat.debug', false)
-    msg += `\n - Debug: ${debug}`
     
     console.log(msg)
 }
@@ -39,12 +35,7 @@ const loadConfig = () =>{
 module.exports.loadConfig = loadConfig
 
 function setPersistedSettings() {
-    if(opened) {
-        $('#toggle-chat').prop('checked', true)
-        winChat.open(debug)
-        font.setWin(winChat.getWin())
-    }
-
+    
     if(!locked) {
         $('#toggle-lock').prop('checked', true)
         winChat.unlock()
@@ -86,7 +77,6 @@ const open = (debug) => {
     if(!channel){
         alert('Please specify a channel')
         $('#toggle-chat').prop('checked', false)
-        config.set('window.chat.opened', false)
         // TODO --
         // code to focus/highlight the channel input
         return

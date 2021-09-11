@@ -1,9 +1,6 @@
 @import url('../../node_modules/bootstrap-icons/font/bootstrap-icons.css');
 @import url('../../node_modules/bootstrap/dist/css/bootstrap.min.css');
 @import url('./titlebar.css');
-@import url('./nav.css');
-@import url('./menus/font.css');
-@import url('./menus/main.css');
 
 :root {
   --background-color: #232229;
@@ -24,12 +21,156 @@ body {
   background: var(--background-color);
 }
 
-.menu {
-  display: none
+.container {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  height: calc(100% - 20px);
+  display: grid;
+  grid-template-rows: 90px 4fr 2fr;
+  row-gap: 20px;
 }
 
-.opened-menu {
-  display: grid !important;
-  margin: 10px;
-  height: calc(100% - 80px);
+.top{
+  display: grid;
+  border: 2px solid #2e2e35;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 94px;
+  grid-template-columns: 90px 1fr;
+}
+
+.bottom{
+  border: 2px solid #2e2e35;
+  border-radius: 15px;
+}
+
+.example-text {
+  height: 100%;
+  vertical-align: middle;
+}
+
+.selected-channel{
+  text-align: center;
+  align-self: flex-start;
+  height: 100%;
+}
+
+
+.pfp {
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.options {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+.options > div {
+  border-radius: 15px;
+  border: 2px solid #2e2e35;
+  padding: 10px;
+  width: 100%;
+  display: grid;
+  align-content: center;
+  grid-template-columns: 2fr 68% 1fr;
+}
+
+.label {
+  width: 100%;
+  padding-right: 15px;
+  text-align: right;
+}
+
+.number-input{
+  padding-left: 15px;
+  width: 100%;
+}
+
+.options > div input[type="number"]{
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+.option-contents {
+  display: flex;
+  flex-direction: row;
+}
+
+.bottom {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.unlocked{
+  background-color: #2e2e35;
+}
+
+.locked{
+  background-color: #7546c0;
+}
+
+.switch{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#toggle-lock{
+  height: 60%;
+  width: 90%;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  
+  font-size: 20px;
+}
+
+.authors {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-right: 14px;
+}
+
+.slider {
+  vertical-align: middle;
+  -webkit-appearance: none;
+  width: 100%;
+  align-self: center;
+  background: #2e2e35;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #7546c0;
+  cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

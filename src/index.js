@@ -16,8 +16,9 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     show: false,
     backgroundColor: '#2c2a4a',
-    minWidth: 600,
-    minHeight: 400,
+    minWidth: 400,
+    maxWidth: 500,
+    minHeight: 450,
     frame: false,
     icon: path.join(__dirname, 'img/icon.png'),
     webPreferences: {
@@ -29,9 +30,10 @@ const createWindow = () => {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
+    mainWindow.setResizable(false)
   })
 
-  winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 425, height: 550})
+  winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 400, height: 450})
   mainWindow.setBounds(winBounds)
 
   // and load the index.html of the app.
@@ -59,7 +61,7 @@ const createWindow = () => {
     
   })
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
