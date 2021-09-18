@@ -37,6 +37,13 @@ function listenChanges(){
     // Saves to config when button pressed
     $('#btn-update-channel').on('click', function(){
         saveConfig()
+        if(!winChat) return
+
+        winChat.close()
+
+        // TODO:
+        // update pfp
+        // clear and relaunch chat
     })
 }
 
