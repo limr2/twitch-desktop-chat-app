@@ -13,14 +13,21 @@
       <button class="bi-x-lg" id="title-close" type="button" aria-label="close"></button>
     </div>
     <div class= container>
-      <div class="top">
-
+      <div class="top" tabindex="0">
         <div class="selected-channel">
-          <img class="pfp" src="https://static-cdn.jtvnw.net/jtv_user_pictures/16a32628-e7e5-4a5f-9b1d-4512cd69d7fd-profile_image-70x70.png">
+          <div class="pfp-container">
+            <img class="pfp" src="https://static-cdn.jtvnw.net/jtv_user_pictures/cf2b79da-d2e0-4b51-bc08-b5344ed0f682-profile_image-70x70.png">
+            <div class="change-channel">change channel</div>
+          </div>
         </div>
 
         <div class="example-text">
-          <span class="chat-text-example chat-username" style="color: #a7499c">eunamiku</span><span class="chat-text-example">: hi pogmaw he he xd </span>
+          <span class="chat-text-example chat-username" style="color: #a51d1d">QarthO</span><span class="chat-text-example">: hi hello testing 123 bigwordyeslongbigword 9876 </span>
+        </div>
+
+        <div class="edit-channel">
+          <input id="channelname" type="text">
+          <button id="btn-update-channel">update</button>
         </div>
 
       </div >
@@ -35,15 +42,15 @@
           <input id="opacity-slider" class="slider" type="range" min="0" max="1" step=".1"/>
           <input id="opacity-text" class="number-input" type="number" min="0" max="1" step=".1"/>
         </div>
-        <div class="option-contents" id="timeout-options">
-          <span class="label">timeout</span>
-          <input id="timeout-slider" class="slider" type="range" min="0" max="31" step="1"/>
-          <input id="timeout-text" class="number-input" type="number" min="0" max="30" step="1"/>
+        <div class="option-contents" id="fadeout-options">
+          <span class="label">fadeout</span>
+          <input id="fadeout-slider" class="slider" type="range" min="0" max="31" step="1"/>
+          <input id="fadeout-text" class="number-input" type="number" min="0" max="30" step="1"/>
         </div>
       </div >
       <div class="bottom">
         <div class="switch">
-            <button class="unlocked" id="toggle-lock">resize chat</button>
+            <button class="unlocked" id="toggle-lock">move overlay</button>
         </div>
         <div class="authors">
           <span>@QarthO</span>

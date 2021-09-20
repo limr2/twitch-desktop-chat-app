@@ -61,7 +61,7 @@ function updateChat(msg, context){
 
 // parses emotes
 function parseEmotes(newLine, msg, context){
-    var messageDiv = document.createElement('div')
+    var messageDiv = document.createElement('span')
     messageDiv.classList.add('message-container')
 
     var emotes = context['emotes']

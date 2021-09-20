@@ -14,7 +14,7 @@ $(function(){
 // gets persisted settings from config
 function loadConfig(){
     enabled = config.get('idle.enabled', true)
-    time = parseInt(config.get('idle.time', 10))*1000
+    time = parseInt(config.get('idle.time', 10))*100000
 }
 
 // initializes the timer

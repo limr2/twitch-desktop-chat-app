@@ -16,9 +16,6 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     show: false,
     backgroundColor: '#2c2a4a',
-    minWidth: 400,
-    maxWidth: 500,
-    minHeight: 450,
     frame: false,
     icon: path.join(__dirname, 'img/icon.png'),
     webPreferences: {
@@ -28,23 +25,28 @@ const createWindow = () => {
     }
   });
 
+  // shows the page after electron finishes setup
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-    mainWindow.setResizable(false)
-  })
+  })  
 
+  // set bounds of window (location and size)
   winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 400, height: 450})
   mainWindow.setBounds(winBounds)
 
-  // and load the index.html of the app.
+  // disables resizing of window (TBD if in final version)
+  mainWindow.setResizable(false)
+
+
+  // loads main page of the app
   mainWindow.loadFile(path.join(__dirname, 'app.html'));
   
-
+  // remembers postiion of window
   mainWindow.on('move', function(){
     saveWinBounds()
   })
 
-  // remembers window position and size after resize
+  // remembers size of window
   mainWindow.on('resize', function(){
     saveWinBounds()
   })
@@ -61,7 +63,7 @@ const createWindow = () => {
     
   })
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

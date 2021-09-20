@@ -102,7 +102,8 @@ const open = (debug) => {
     });
     
     // opens dev tools if in debug mode
-    if(debug) win.webContents.openDevTools();
+    // if(debug)
+     win.webContents.openDevTools();
 
 
     // forces window to always be in front

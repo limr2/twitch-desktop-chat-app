@@ -41,6 +41,14 @@ const disconnect = () => {
 
 module.exports.disconnect = disconnect
 
+const reconnect = () => {
+    console.log("reconnecting")
+    disconnect()
+    connect(channelName)
+}
+
+module.exports.reconnect = reconnect
+
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
     updateChat(msg, context)
