@@ -96,3 +96,31 @@ const saveWinBounds = () => {
   winBounds = mainWindow.getBounds()
   config.set('window.app.bounds', winBounds)
 }
+
+const { ipcMain } = require("electron");
+
+const options = {
+  NONE: 'undefined',
+  FONT_SIZE: 'font-size',
+  OPACITY: 'opacity',
+  FADEOUT_TIME: 'fadeout-time',
+}
+
+ipcMain.on('update', function(event, option, data) {
+
+  console.log(`${typeof option}: ${option}`)
+  switch(option) {
+    case options.NONE:
+      console.log('do nothing');
+      break;
+    case options.FONT_SIZE:
+      console.log('TODO: change fontsize');
+      break;
+    case options.OPACITY:
+      console.log('TODO: change opacity');
+      break;
+    case options.FADEOUT_TIME:
+      console.log('TODO: fadeout time');
+      break;
+  }
+})

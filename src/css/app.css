@@ -97,6 +97,14 @@ body {
   height: 100%;
 }
 
+.top:focus .pfp{
+  opacity: 20%;
+}
+
+.top:hover .pfp{
+  opacity: 20%;
+}
+
 
 .top:focus-within > .edit-channel{
   display: block
