@@ -103,12 +103,15 @@ const options = {
   NONE: 'undefined',
   FONT_SIZE: 'font-size',
   OPACITY: 'opacity',
-  FADEOUT_TIME: 'fadeout-time',
+  FADE_DELAY: 'fade-delay',
 }
 
-ipcMain.on('update', function(event, option, data) {
+ipcMain.handle('update', async function(event, option, data) {
 
   console.log(`${typeof option}: ${option}`)
+
+
+  updateConfig(option, data)
   switch(option) {
     case options.NONE:
       console.log('do nothing');
@@ -123,4 +126,6 @@ ipcMain.on('update', function(event, option, data) {
       console.log('TODO: fadeout time');
       break;
   }
+
+  return 'completed'
 })
