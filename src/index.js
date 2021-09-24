@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcRenderer } = require('electron');
 const path = require('path');
 var config = require('electron-json-config');
 const { main } = require('@popperjs/core');
@@ -19,6 +19,7 @@ const createWindow = () => {
     frame: false,
     icon: path.join(__dirname, 'img/icon.png'),
     webPreferences: {
+      preload: path.join(app.getAppPath(), 'preload.js'),
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
@@ -105,6 +106,8 @@ const options = {
   OPACITY: 'opacity',
   FADE_DELAY: 'fade-delay',
 }
+
+ipcMain.handle('get-prefs', async function())
 
 ipcMain.handle('update', async function(event, option, data) {
 
