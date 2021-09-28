@@ -30,6 +30,7 @@ const createWindow = () => {
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
     chatWindow.open(false)
+    twitch.setChatWin(chatWindow.getWin())
   })  
 
   // set bounds of window (location and size)
@@ -108,9 +109,6 @@ var overlay = require('./js/main/overlay_main.js');
 var twitch = require('./js/main/twitch_main.js')
 
 
-
-
-
 // title bar handlers
 ipcMain.handle('minimize-app-window', async function(event){
   mainWindow.minimize()
@@ -134,11 +132,12 @@ ipcMain.handle('update-channel', async function(event, channel){
 
 // create overlay window
 
-var chatWindow = require('./js/main/window.js')
+// var chatWindow = require('./js/main/window.js')
 
-twitch.setChatWin(chatWindow.getWin())
 
-ipcMain.handle('connect-twitch', async function(event, channel){
-  twitch.connect(channel)
+
+ipcMain.handle('connect-twitch', async function(event){
+  console.log(`ipcMain Handler: connect-twitch`)
+  twitch.connect(config.get('channel', 'SaltyTeemo'))
 })
 

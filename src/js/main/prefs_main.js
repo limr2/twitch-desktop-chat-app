@@ -14,8 +14,8 @@ ipcMain.handle('get-prefs', function(){
   
 ipcMain.handle('update-chat-pref', async function(event, pref, data) {
     config.set(`chat.${pref}`, data)
-    // console.log(`'${pref}' set to '${data}'`)
 
     //TODO:  send this to chat renderer
+    // chatWindow.webContents.send('update-chat-pref', pref, data)
     return 1
   })

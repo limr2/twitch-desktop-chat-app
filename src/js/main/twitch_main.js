@@ -7,6 +7,7 @@ var client = null;
 
 const connect = (channelName) => {
 
+    console.log(`channelName: '${channelName}'`)
     // Returns if no channel
     if(!channelName) return
 
@@ -28,6 +29,7 @@ const connect = (channelName) => {
     client.on('message', onMessageHandler);
 
     // Connects to twitch channel:
+    console.log(`Connecting to ${channel}...`)
     client.connect();
 }
 
@@ -54,6 +56,7 @@ module.exports.reconnect = reconnect
 chatWindow = null
 
 const setChatWin = (window) => {
+    console.log('setting chat window')
     chatWindow = window
 }
 
@@ -61,9 +64,14 @@ module.exports.setChatWin =setChatWin
 
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
-
-    if(chatWindow)
+    console.log(`TwitchBot recieved message: ${msg}`)
+    if(chatWindow){
+        console.log(`sending message to renderer`)
         chatWindow.webContents.send('update-chat', msg, context)
+    }
+    else{
+        console.log(`no chat window found`)
+    }
 }
  
  // Called every time the bot connects to Twitch chat

@@ -2,10 +2,6 @@ var config = require('electron-json-config');
 
 win = null;
 
-winX = null
-winY = null
-winW = null
-winH = null
 locked = null
 winBounds = null
 channel = null
@@ -67,7 +63,7 @@ const open = (debug) => {
         f = true
     } 
 
-    console.log("Opening " + channel  + "'s Chat...")
+    // console.log("Opening " + channel  + "'s Chat...")
 
     // creates electron browser window
     const { BrowserWindow } = require('electron');
@@ -175,6 +171,7 @@ module.exports.close = close
 
 // returns window object (lets other classes interact with chat window)
 const getWin = () => {
+    console.log(`Getting Chat win: ${win}`)
     return win
 }
 

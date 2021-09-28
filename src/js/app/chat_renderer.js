@@ -8,6 +8,7 @@ const { ipcRenderer } = require('electron')
 // runs after page loaded
 $(function(){
     loadConfig()
+    console.log('ipcRenderer: connect-twitch')
 
     ipcRenderer.invoke('connect-twitch')
 
