@@ -1,13 +1,16 @@
 window.$ = window.jquery = require('jquery')
 var config = require('electron-json-config')
-const twitch = require('./js/chat/twitch.js')
-const idle = require('./js/chat/idle.js')
+// const twitch = require('./js/chat/twitch.js')
+const idle = require('./js/main/idle.js')
+const { ipcRenderer } = require('electron')
 
 
 // runs after page loaded
 $(function(){
     loadConfig()
-    twitch.connect(channelName)
+
+    ipcRenderer.invoke('connect-twitch')
+
     idle.start()
 })
 
@@ -31,6 +34,14 @@ function setPersistedSettings(){
 
 
 // Updates the chat display
+
+
+ipcRenderer.on('update-chat', function(event, msg, context){
+    updateChat(msg, context)
+})
+
+
+
 function updateChat(msg, context){
     
     idle.reset()

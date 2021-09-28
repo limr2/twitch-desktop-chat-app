@@ -1,3 +1,5 @@
+var config = require('electron-json-config');
+
 win = null;
 
 winX = null
@@ -9,12 +11,17 @@ winBounds = null
 channel = null
 
 //
-$(function(){
+
+
+
+function init(){
     loadConfig()
-    winChat.open(debug)
-    font.setWin(winChat.getWin())
-    setPersistedSettings()
-})
+    open(true)
+    // font.setWin(winChat.getWin())
+    // setPersistedSettings()
+}
+
+
 
 const loadConfig = () =>{
 
@@ -33,19 +40,6 @@ const loadConfig = () =>{
 }
 
 module.exports.loadConfig = loadConfig
-
-function setPersistedSettings() {
-    
-    if(!locked) {
-        $('#toggle-lock').prop('checked', true)
-        winChat.unlock()
-    }
-
-    if(debug) {
-        $('#toggle-debug').prop('checked', true)
-    }
-}
-
 
 // saves data to config
 const saveConfig = () => {
@@ -73,21 +67,11 @@ const open = (debug) => {
         f = true
     } 
 
-    // cancels if no channel selected
-    if(!channel){
-        alert('Please specify a channel')
-        $('#toggle-chat').prop('checked', false)
-        // TODO --
-        // code to focus/highlight the channel input
-        return
-    }
-
     console.log("Opening " + channel  + "'s Chat...")
 
     // creates electron browser window
-    const remote = require('electron').remote;
+    const { BrowserWindow } = require('electron');
     const path = require('path')
-    const BrowserWindow = remote.BrowserWindow;
     win = new BrowserWindow({
         minWidth: 200,
         minHeight: 200,

@@ -1,47 +1,15 @@
-var electron = require('electron');
-var appWindow = electron.remote.getCurrentWindow();
+const { ipcRenderer } = require("electron")
 
 $(function(){
-    console.log('title bar running!')
-    listenTitleBar()  
+    handleTitleBar()
 })
 
-function close(){
-  if(!appWindow) return
-  // TODO:
-  //    doublecheck user wants to close?
-  appWindow.close()
-}
-
-function minimize(){
-    if(!appWindow) return
-    // TODO:
-    //    hault resource intensive tasks
-    appWindow.minimize()
-}
-
-function toggleFullscreen(){
-    if(!appWindow) return
-
-    if(appWindow.isMaximized()) {
-        appWindow.unmaximize()
-    } else {
-        appWindow.maximize()
-    }
-    
-    
-}
-
-function listenTitleBar(){
-    $('#title-min').on('click', function(){
-        minimize()
-    })
-
-    $('#title-full').on('click', function(){
-        toggleFullscreen()
+async function handleTitleBar(){
+    $('#title-min').on('click', async function(){
+        await ipcRenderer.invoke('minimize-app-window')
     })
   
-    $('#title-close').on('click', function(){
-        close()
+    $('#title-close').on('click', async function(){
+        await ipcRenderer.invoke('close-app-window')
     })
 }

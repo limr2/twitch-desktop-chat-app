@@ -1,6 +1,7 @@
 var tmi = require('tmi.js');
-window.$ = window.jquery = require('jquery')
-var config = require('electron-json-config')
+// window.$ = window.jquery = require('jquery')
+var config = require('electron-json-config');
+const { ipcMain } = require('electron');
 
 var client = null;
 
@@ -41,7 +42,7 @@ const disconnect = () => {
 
 module.exports.disconnect = disconnect
 
-const reconnect = () => {
+const reconnect = (channelName) => {
     console.log("reconnecting")
     disconnect()
     connect(channelName)
@@ -49,9 +50,20 @@ const reconnect = () => {
 
 module.exports.reconnect = reconnect
 
+
+chatWindow = null
+
+const setChatWin = (window) => {
+    chatWindow = window
+}
+
+module.exports.setChatWin =setChatWin
+
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
-    updateChat(msg, context)
+
+    if(chatWindow)
+        chatWindow.webContents.send('update-chat', msg, context)
 }
  
  // Called every time the bot connects to Twitch chat

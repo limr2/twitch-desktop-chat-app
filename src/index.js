@@ -19,7 +19,7 @@ const createWindow = () => {
     frame: false,
     icon: path.join(__dirname, 'img/icon.png'),
     webPreferences: {
-      preload: path.join(app.getAppPath(), 'preload.js'),
+      // preload: path.join(app.getAppPath(), 'preload.js'),
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true,
@@ -29,6 +29,7 @@ const createWindow = () => {
   // shows the page after electron finishes setup
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
+    chatWindow.open(false)
   })  
 
   // set bounds of window (location and size)
@@ -100,35 +101,44 @@ const saveWinBounds = () => {
 
 const { ipcMain } = require("electron");
 
-const options = {
-  NONE: 'undefined',
-  FONT_SIZE: 'font-size',
-  OPACITY: 'opacity',
-  FADE_DELAY: 'fade-delay',
-}
+var prefs = require('./js/main/prefs_main.js')
 
-ipcMain.handle('get-prefs', async function())
+var overlay = require('./js/main/overlay_main.js');
 
-ipcMain.handle('update', async function(event, option, data) {
-
-  console.log(`${typeof option}: ${option}`)
+var twitch = require('./js/main/twitch_main.js')
 
 
-  updateConfig(option, data)
-  switch(option) {
-    case options.NONE:
-      console.log('do nothing');
-      break;
-    case options.FONT_SIZE:
-      console.log('TODO: change fontsize');
-      break;
-    case options.OPACITY:
-      console.log('TODO: change opacity');
-      break;
-    case options.FADEOUT_TIME:
-      console.log('TODO: fadeout time');
-      break;
-  }
 
-  return 'completed'
+
+
+// title bar handlers
+ipcMain.handle('minimize-app-window', async function(event){
+  mainWindow.minimize()
 })
+
+ipcMain.handle('close-app-window', async function(event){
+  twitch.disconnect()
+  mainWindow.close()
+})
+
+// update channel
+ 
+ipcMain.handle('update-channel', async function(event, channel){
+  config.set('channel', channel)
+
+  twitch.disconnect()
+  overlay.clear()
+  twitch.connect(channel)
+
+})
+
+// create overlay window
+
+var chatWindow = require('./js/main/window.js')
+
+twitch.setChatWin(chatWindow.getWin())
+
+ipcMain.handle('connect-twitch', async function(event, channel){
+  twitch.connect(channel)
+})
+
