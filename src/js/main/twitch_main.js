@@ -16,8 +16,6 @@ const connect = (channelName) => {
         console.log("Disconnecting...")
         client.disconnect()
     }
-
-    console.log("Reading " + channelName + "'s chat...")
     
     // Creates new client to connect to channel
     client = new tmi.client({
@@ -29,7 +27,7 @@ const connect = (channelName) => {
     client.on('message', onMessageHandler);
 
     // Connects to twitch channel:
-    console.log(`Connecting to ${channel}...`)
+    console.log(`twitchbot: connect() => Connecting to ${channel}...`)
     client.connect();
 }
 

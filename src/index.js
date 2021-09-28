@@ -29,8 +29,7 @@ const createWindow = () => {
   // shows the page after electron finishes setup
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-    chatWindow.open(false)
-    twitch.setChatWin(chatWindow.getWin())
+    chatWindow.open()
   })  
 
   // set bounds of window (location and size)
@@ -104,40 +103,19 @@ const { ipcMain } = require("electron");
 
 var prefs = require('./js/main/prefs_main.js')
 
-var overlay = require('./js/main/overlay_main.js');
-
-var twitch = require('./js/main/twitch_main.js')
-
-
 // title bar handlers
 ipcMain.handle('minimize-app-window', async function(event){
   mainWindow.minimize()
 })
 
 ipcMain.handle('close-app-window', async function(event){
-  twitch.disconnect()
+  // twitch.disconnect()
   mainWindow.close()
 })
 
-// update channel
- 
-ipcMain.handle('update-channel', async function(event, channel){
-  config.set('channel', channel)
 
-  twitch.disconnect()
-  overlay.clear()
-  twitch.connect(channel)
-
-})
 
 // create overlay window
 
-// var chatWindow = require('./js/main/window.js')
-
-
-
-ipcMain.handle('connect-twitch', async function(event){
-  console.log(`ipcMain Handler: connect-twitch`)
-  twitch.connect(config.get('channel', 'SaltyTeemo'))
-})
+var chatWindow = require('./js/main/chatWindow_main.js')
 

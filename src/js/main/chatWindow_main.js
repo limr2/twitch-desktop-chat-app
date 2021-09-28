@@ -4,6 +4,7 @@ const { BrowserWindow, ipcMain } = require('electron');
 const path = require('path')
 
 chatWindow = null
+winBounds = config.get('window.chat.bounds')
 
 
 
@@ -124,7 +125,30 @@ const unlock = () => {
 
 module.exports.unlock = unlock
 
-var twitch = require('./js/main/twitch_main.js')
+var twitch = require('./twitch_main.js')
 
 twitch.setChatWin(chatWindow)
+
+// update channel
+ 
+ipcMain.handle('update-channel', async function(event, channel){
+    config.set('channel', channel)
+  
+    // disconnects twitch bot
+    twitch.disconnect()
+
+    // clears chat
+    chatWindow.webContents.executeJavaScript(`document.getElementById('chat-box).innerHTML = ""`)
+
+    // connects to new channel
+    twitch.connect(channel)
+  
+  })
+
+
+  ipcMain.handle('connect-twitch', async function(event){
+    channel = config.get('channel', 'SaltyTeemo')
+    console.log(`ipcMain Handler: connect-twitch => Channel: ''${channel}`)
+    twitch.connect(channel)
+  })
 
