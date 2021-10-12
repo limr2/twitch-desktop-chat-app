@@ -11,11 +11,15 @@ ipcMain.handle('get-prefs', function(){
     }
     return overlaySettings
 })
-  
+
+
+var chatWindow = require('./chatWindow_main.js')
+
 ipcMain.handle('update-chat-pref', async function(event, pref, data) {
     config.set(`chat.${pref}`, data)
 
     //TODO:  send this to chat renderer
-    // chatWindow.webContents.send('update-chat-pref', pref, data)
+    if(pref == 'font-size' || pref == 'opacity')
+        chatWindow.updateChannelText(pref, data)
     return 1
   })

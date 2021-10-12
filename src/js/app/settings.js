@@ -16,6 +16,7 @@ $(function(){
     handleFadeDelayInput()
     handleFontSizeInput()
     handleOpacityInput()
+    handleOverlayLock()
 })
 
 
@@ -147,9 +148,8 @@ async function handleFadeDelayInput() {
 async function handleOverlayLock(){
 
     $('#toggle-lock').on('click', async function(){
-    
+        console.log('clicked toggle lock')
         if(!$(this).data('locked')){
-    
             console.log('locking')
             var result = await ipcRenderer.invoke('chat-window', 'lock')
             if(result = 1){

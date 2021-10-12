@@ -27,7 +27,7 @@ const connect = (channelName) => {
     client.on('message', onMessageHandler);
 
     // Connects to twitch channel:
-    console.log(`twitchbot: connect() => Connecting to ${channel}...`)
+    console.log(`twitch_main: connect() => Connecting to ${channel}...`)
     client.connect();
 }
 
@@ -62,9 +62,7 @@ module.exports.setChatWin =setChatWin
 
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
-    console.log(`TwitchBot recieved message: ${msg}`)
     if(chatWindow){
-        console.log(`sending message to renderer`)
         chatWindow.webContents.send('update-chat', msg, context)
     }
     else{

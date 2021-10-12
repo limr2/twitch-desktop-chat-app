@@ -51,6 +51,8 @@ const open = () => {
 
         // disconnects the twitch bot
     })
+
+    chatWindow.webContents.openDevTools();
 }
 
 module.exports.open = open
@@ -130,7 +132,15 @@ var twitch = require('./twitch_main.js')
 twitch.setChatWin(chatWindow)
 
 // update channel
- 
+
+
+const updateChannelText = (pref, value) => {
+    console.log(`Updating: ${pref}: ${value}`)
+    chatWindow.webContents.send(`update-chat-text`, pref, value)
+}
+
+module.exports.updateChannelText = updateChannelText
+
 ipcMain.handle('update-channel', async function(event, channel){
     config.set('channel', channel)
   
@@ -138,7 +148,7 @@ ipcMain.handle('update-channel', async function(event, channel){
     twitch.disconnect()
 
     // clears chat
-    chatWindow.webContents.executeJavaScript(`document.getElementById('chat-box).innerHTML = ""`)
+    chatWindow.webContents.executeJavaScript(`document.getElementById('chat-box').innerHTML = ""`)
 
     // connects to new channel
     twitch.connect(channel)
@@ -152,3 +162,14 @@ ipcMain.handle('update-channel', async function(event, channel){
     twitch.connect(channel)
   })
 
+ipcMain.handle('chat-window', async function(event, data){
+    if(data == 'lock'){
+        lock()
+    }
+
+    if(data == 'unlock')
+        unlock()
+})
+
+
+const test = require('./twitch_api.js')

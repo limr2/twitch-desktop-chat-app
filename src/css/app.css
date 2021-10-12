@@ -55,7 +55,6 @@ body {
 .selected-channel{
   text-align: center;
   align-self: flex-start;
-  height: 100%;
 }
 
 .pfp-container{
@@ -116,7 +115,8 @@ a:hover{
 
 
 .top:focus-within > .edit-channel{
-  display: block
+  display: flex;
+  height: 40%;
 }
 
 .top:focus {
