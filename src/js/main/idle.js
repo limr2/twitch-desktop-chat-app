@@ -18,7 +18,7 @@ function loadConfig(){
     
     enabled = config.get('idle.enabled', true)
     // idle.time saved in seconds, need x1000 because idle timer in miliseconds
-    time = parseInt(config.get('idle.time', 10))
+    time = parseInt(config.get('idle.time', 15))
     console.log(`idle.js: loadConfig() => time: ${time}`)
     
 }

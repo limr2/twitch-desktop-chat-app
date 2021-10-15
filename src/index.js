@@ -56,16 +56,11 @@ const createWindow = () => {
 
 
   mainWindow.on('close', function(){
-    mainWindow.webContents.executeJavaScript(`
-      if(winChat) winChat.close();
-    `)
-    mainWindow.webContents.executeJavaScript(`
-      savePersistedSettings();
-    `)
+    app.quit()
     
   })
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

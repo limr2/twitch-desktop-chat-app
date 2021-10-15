@@ -53,7 +53,7 @@ const open = () => {
         // disconnects the twitch bot
     })
 
-    chatWindow.webContents.openDevTools();
+    // chatWindow.webContents.openDevTools();
 }
 
 module.exports.open = open
