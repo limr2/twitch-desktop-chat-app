@@ -1,3 +1,5 @@
+const { ipcRenderer } = require("electron")
+
 const options = {
     NONE: 'undefined',
     FONT_SIZE: 'font-size',
@@ -61,18 +63,30 @@ async function loadPrefs(){
     $('#channelname').val(channel)
     $('#example-channelname').html(`${channel} `)
 
+    console.log(`Locked: ${locked}`)
     if(locked){
         $('#toggle-lock').addClass('locked')
-        $(this).data('locked', true)
+        $('#toggle-lock').data('locked', true)
+        await ipcRenderer.invoke('chat-window', 'lock')
+        console.log('sent lock')
     } else {        
         $('#toggle-lock').addClass('unlocked')
-        $(this).data('locked', false)
+        $('#toggle-lock').data('locked', false)
+        await ipcRenderer.invoke('chat-window', 'unlock')
+        console.log('sent unlock')
     }
+
+    
 
 }
 
 async function handleChannelInput(){
 
+    $("#channelname").on('keyup', function(event) {
+        if(event.key == 'Enter'){
+            $('#btn-update-channel').trigger('click')
+        }
+    })
     $('#btn-update-channel').on('click', async function(){
 
         channel = $('#channelname').val()
@@ -149,6 +163,7 @@ async function handleOverlayLock(){
 
     $('#toggle-lock').on('click', async function(){
         console.log('clicked toggle lock')
+        console.log()
         if(!$(this).data('locked')){
             console.log('locking')
             var result = await ipcRenderer.invoke('chat-window', 'lock')

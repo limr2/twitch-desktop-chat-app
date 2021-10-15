@@ -28,8 +28,8 @@ const open = () => {
     chatWindow.setAlwaysOnTop(true, 'screen');
     
     // sets window position/size from previous instance
-    // default bounds:               {x: 100, y: 100, width: 400, height: 800}
-    config.get('window.chat.bounds', {x: 100, y: 100, width: 400, height: 800})
+    // default bounds:                           {x: 100, y: 100, width: 400, height: 800}
+    winBounds = config.get('window.chat.bounds', {x: 100, y: 100, width: 400, height: 800})
     chatWindow.setBounds(winBounds)
 
     // loads html file
@@ -38,6 +38,7 @@ const open = () => {
     // remembers window position and size after moving
     chatWindow.on('move', function(){
         saveWinBounds()
+
     })
 
     // remembers window position and size after resize
@@ -75,7 +76,7 @@ const updatePrefs = (pref, data) => {
 
     // checks to make sure chatWindow exists
     if(!chatWindow){
-        console.log(`Error: chatWindow_main.js => updatePrefs() - chatWindow doesnt exist`)
+        console.log(`Error: chatWindow_main.js => updatePrefs(${pref}, ${data}) - chatWindow doesnt exist`)
         return
     }
 
@@ -85,6 +86,20 @@ const updatePrefs = (pref, data) => {
 
 module.exports.updatePrefs = updatePrefs
 
+const updateFadeoutDelay = (time) => {
+    
+    // checks to make sure chatWindow exists
+    if(!chatWindow){
+        console.log(`Error: chatWindow_main.js => updateFadeoutDelay(${time}) - chatWindow doesnt exist`)
+        return
+    }
+
+    
+    // sends the upated pref to chat renderer
+    chatWindow.webContents.send('update-fadeout-delay', time)
+}
+
+module.exports.updateFadeoutDelay = updateFadeoutDelay
 
 const lock = () => {
 
@@ -135,7 +150,7 @@ twitch.setChatWin(chatWindow)
 
 
 const updateChannelText = (pref, value) => {
-    console.log(`Updating: ${pref}: ${value}`)
+    // console.log(`Updating: ${pref}: ${value}`)
     chatWindow.webContents.send(`update-chat-text`, pref, value)
 }
 
@@ -158,18 +173,20 @@ ipcMain.handle('update-channel', async function(event, channel){
 
   ipcMain.handle('connect-twitch', async function(event){
     channel = config.get('channel', 'SaltyTeemo')
-    console.log(`ipcMain Handler: connect-twitch => Channel: ''${channel}`)
+    // console.log(`ipcMain Handler: connect-twitch => Channel: '${channel}'`)
     twitch.connect(channel)
   })
 
 ipcMain.handle('chat-window', async function(event, data){
+    console.log(`ipcMain recieved 'chat-window' : ${data}`)
     if(data == 'lock'){
         lock()
     }
 
     if(data == 'unlock')
         unlock()
+
+    if(!config.get('window.chat.locked')){
+        unlock()
+    }
 })
-
-
-const test = require('./twitch_api.js')

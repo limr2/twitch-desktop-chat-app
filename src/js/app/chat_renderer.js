@@ -13,8 +13,8 @@ chatFontColor = null
 // runs after page loaded
 $(function(){
     loadConfig()
-    console.log('ipcRenderer: connect-twitch')
 
+    console.log('chat_render.js: init() => ipcRenderer: connect-twitch')
     ipcRenderer.invoke('connect-twitch')
 
     idle.start()
@@ -32,7 +32,6 @@ function loadConfig(){
 
 }
 function setPersistedSettings(){
-    console.log("chat opacity: " + chatOpacity)
     $('.chat-text').css('opacity', chatOpacity)
     $('.chat-text').css('font-size', chatFontSize + 'px')
     $('.chat-text').css('color', chatFontColor)
@@ -54,8 +53,9 @@ ipcRenderer.on('update-chat', function(event, msg, context){
 
 
 function updateChat(msg, context){
-    
-    idle.reset()
+    new_time = config.get('idle.time')
+    console.log(`new time: ${new_time}sec`)
+    idle.reset(new_time*1000)
 
     var newLine = document.createElement('li');
     var username = document.createElement('span');
@@ -99,9 +99,6 @@ function parseEmotes(newLine, msg, context){
         return msg
     }
 
-    console.log('Parsing Emotes...')
-    console.log('Emotes: ' + emotes)
-
     var emoteNames = {}
 
     for(var id in emotes){
@@ -110,13 +107,10 @@ function parseEmotes(newLine, msg, context){
         emoteName = msg.substring(range[0], range[1])
         emoteNames[emoteName] = id
     }
-
-    console.log(emoteNames)
     
     splitMsg = msg.split(' ')
 
     workingMsg = " "
-    console.log(splitMsg)
     splitMsg.forEach(function(word){
         if(emoteNames[word]){
             if(workingMsg){
@@ -145,6 +139,16 @@ function getMsgHTML(msg){
     message.innerText = msg;
     return message
 }
+
+function getBadgesHTML(badges){
+
+    //'Client-ID: uo6dggojyb8d6soh92zknwmi5ej1q2' \ -H 'Authorization: OAuth cfabdegwdoklmawdzdo98xt2fo512y' \ -X GET 'https://api.twitch.tv/kraken/channel'
+    
+    var badgesLink = ''
+
+
+}
+
 
 // returns img with the emote 
 function getEmoteHTML(emoteId){

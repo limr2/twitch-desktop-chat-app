@@ -117,5 +117,5 @@ ipcMain.handle('close-app-window', async function(event){
 
 // create overlay window
 
-// var chatWindow = require('./js/main/chatWindow_main.js')
+var chatWindow = require('./js/main/chatWindow_main.js')
 

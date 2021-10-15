@@ -21,5 +21,10 @@ ipcMain.handle('update-chat-pref', async function(event, pref, data) {
     //TODO:  send this to chat renderer
     if(pref == 'font-size' || pref == 'opacity')
         chatWindow.updateChannelText(pref, data)
+    if(pref == 'fade-delay'){
+        console.log(`updating fade delay: ${data}`)
+        config.set('idle.time', data)
+        chatWindow.updateFadeoutDelay(data)
+    }
     return 1
   })

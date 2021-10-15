@@ -7,7 +7,6 @@ var client = null;
 
 const connect = (channelName) => {
 
-    console.log(`channelName: '${channelName}'`)
     // Returns if no channel
     if(!channelName) return
 
@@ -27,7 +26,7 @@ const connect = (channelName) => {
     client.on('message', onMessageHandler);
 
     // Connects to twitch channel:
-    console.log(`twitch_main: connect() => Connecting to ${channel}...`)
+    console.log(`twitch_main.js: connect() => Connecting to '${channelName}'`)
     client.connect();
 }
 
@@ -54,7 +53,6 @@ module.exports.reconnect = reconnect
 chatWindow = null
 
 const setChatWin = (window) => {
-    console.log('setting chat window')
     chatWindow = window
 }
 
@@ -66,7 +64,7 @@ function onMessageHandler (target, context, msg, self) {
         chatWindow.webContents.send('update-chat', msg, context)
     }
     else{
-        console.log(`no chat window found`)
+        console.log(`Error: twitch_main.js: onMessageHandler() => chatWindow = null`)
     }
 }
  
