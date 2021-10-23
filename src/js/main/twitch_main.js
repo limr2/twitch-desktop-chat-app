@@ -60,8 +60,8 @@ module.exports.setChatWin =setChatWin
 
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
+    console.log(context)
     if(chatWindow){
-        console.log(context)
         chatWindow.webContents.send('update-chat', msg, context)
     }
     else{

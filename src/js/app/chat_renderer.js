@@ -3,6 +3,7 @@ var config = require('electron-json-config')
 // const twitch = require('./js/chat/twitch.js')
 const idle = require('./js/main/idle.js')
 const { ipcRenderer } = require('electron')
+const badgeParser = require('./js/main/badges.js')
 
 
 channelName = null
@@ -53,7 +54,6 @@ ipcRenderer.on('update-chat', function(event, msg, context){
 
 
 function updateChat(msg, context){
-    // console.log()
     new_time = config.get('idle.time')
     console.log(`new time: ${new_time}sec`)
     idle.reset(new_time*1000)
@@ -69,14 +69,12 @@ function updateChat(msg, context){
     if(context['color'] == null)
         username.style.color = 'green';
 
-    
     username.innerText = context['display-name'];
 
-    // create list of badges
-    // context.
+    var badgeList = badgeParser.getBadges(context['badges']);
 
-    // for each badge in list 
-    // newline append badge
+    badgeList.forEach(element => newLine.append(element));
+
     newLine.append(username)
     newLine.append(":")
 
@@ -145,6 +143,15 @@ function getMsgHTML(msg){
     message.classList.add('message');
     message.innerText = msg;
     return message
+}
+
+function getBadgesHTML(badges){
+
+    //'Client-ID: uo6dggojyb8d6soh92zknwmi5ej1q2' \ -H 'Authorization: OAuth cfabdegwdoklmawdzdo98xt2fo512y' \ -X GET 'https://api.twitch.tv/kraken/channel'
+    
+    var badgesLink = ''
+
+
 }
 
 
