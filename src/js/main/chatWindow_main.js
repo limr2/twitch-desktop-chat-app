@@ -41,6 +41,11 @@ const open = () => {
 
     })
 
+    // disables right click on chat overlay
+    chatWindow.on("system-context-menu", (event, _point) => {
+        event.preventDefault();
+    });
+
     // remembers window position and size after resize
     chatWindow.on('resize', function(){
         saveWinBounds()
