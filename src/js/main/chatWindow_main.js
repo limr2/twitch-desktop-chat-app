@@ -41,11 +41,6 @@ const open = () => {
 
     })
 
-    // disables right click on chat overlay
-    chatWindow.on("system-context-menu", (event, _point) => {
-        event.preventDefault();
-    });
-
     // remembers window position and size after resize
     chatWindow.on('resize', function(){
         saveWinBounds()
@@ -58,10 +53,24 @@ const open = () => {
         // disconnects the twitch bot
     })
 
+    chatWindow.on('close', function(event){
+        if(!closing)
+            event.preventDefault()
+
+    })
+
     // chatWindow.webContents.openDevTools();
 }
 
 module.exports.open = open
+
+var closing = false
+
+const setClosing = () => {
+    closing = true
+}
+
+module.exports.setClosing = setClosing
 
 // saves postion/size of chat window
 function saveWinBounds() {
