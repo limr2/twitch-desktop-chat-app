@@ -6,7 +6,7 @@ ipcMain.handle('get-prefs', function(){
         font_size: config.get('chat.font-size', 18),
         opacity: config.get('chat.opacity', 1),
         fade_delay: config.get('chat.fade-delay', 15),
-        channel: config.get('channel', 'saltyteemo'),
+        channel: config.get('channel', 'xQcOW'),
         locked: config.get('window.chat.locked', false),
     }
     return overlaySettings

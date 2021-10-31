@@ -1,3 +1,4 @@
+const { ipcMain } = require('electron');
 var config = require('electron-json-config')
 
 // on app start
@@ -7,6 +8,13 @@ var config = require('electron-json-config')
 
 // on username change
     // load sub badge list
+
+
+mainWindow = null    
+const setWin = (win) => {
+    mainWindow = win
+}
+
 
 function loadGlobalBadgeList(){
     const options = {
@@ -42,6 +50,7 @@ const refreshBadges = (channelID) => {
 module.exports.refreshBadges = refreshBadges;
 
 const https = require('https')
+var badges = null;
 
 async function getData(options, badgeType){
 
@@ -55,6 +64,10 @@ async function getData(options, badgeType){
             let data   = Buffer.concat(chunks);
             let schema = JSON.parse(data);
             config.set(`badges.${badgeType}`,schema['badge_sets'])
+            if(badgeType == "channel"){
+                badges = schema['badge_sets']['subscriber']
+                mainWindow.webContents.send('sub-badges', badges)
+            }
         });
     })
       
@@ -65,3 +78,24 @@ async function getData(options, badgeType){
     req.end()    
 }
 
+ipcMain.handle(`get-badges`, async function(event){
+
+    const req = await https.request(options, res => {
+        console.log(`statusCode: ${res.statusCode}`)
+      
+        let chunks = [];
+        res.on('data', d => {
+            chunks.push(d);
+            }).on('end', function() {
+            let data   = Buffer.concat(chunks);
+            let schema = JSON.parse(data);
+            config.set(`badges.${badgeType}`,schema['badge_sets'])
+            if(badgeType == "channel"){
+                badges = schema['badge_sets']['subscriber']
+                mainWindow.webContents.send('sub-badges', badges)
+            }
+        });
+    })
+    console.log('badges here badgeman')
+    return badges
+})

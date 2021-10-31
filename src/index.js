@@ -31,7 +31,9 @@ const createWindow = () => {
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
     chatWindow.open()
-  })  
+    chatWindow.setMainWin(mainWindow, app);
+  }) 
+   
 
   // set bounds of window (location and size)
   winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 400, height: 450})
@@ -61,7 +63,7 @@ const createWindow = () => {
     
   })
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -112,8 +114,3 @@ ipcMain.handle('close-app-window', async function(event){
 // create overlay window
 
 var chatWindow = require('./js/main/chatWindow_main.js')
-
-// figure out channel id
-
-var badgeManager = require('./js/main/badge_manager.js')
-badgeManager.refreshBadges(152928496);

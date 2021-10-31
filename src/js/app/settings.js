@@ -1,4 +1,5 @@
-const { ipcRenderer } = require("electron")
+const { ipcRenderer, ipcMain } = require("electron")
+var config = require('electron-json-config');
 
 const options = {
     NONE: 'undefined',
@@ -10,7 +11,8 @@ const options = {
 var channel, fontSize, opacity, fadeDelay
 
 
-$(function(){
+$(async function(){
+    var result = await ipcRenderer.invoke('update-channel', config.get('channel', 'xQcOW'))
 
     loadPrefs()
 
@@ -20,15 +22,6 @@ $(function(){
     handleOpacityInput()
     handleOverlayLock()
 })
-
-
-
-function updateChannelText(){
-    //TODO: Update PFP of channel
-
-    $('#example-channelname').html(`${channel} `)
-
-}
 
 function updateExampleText(){
     $('.chat-text-example').css('font-size', fontSize + 'px')
@@ -61,7 +54,7 @@ async function loadPrefs(){
     updateExampleText()
 
     $('#channelname').val(channel)
-    $('#example-channelname').html(`${channel} `)
+    // $('#example-channelname').html(`${channel} `)
 
     console.log(`Locked: ${locked}`)
     if(locked){
@@ -94,7 +87,6 @@ async function handleChannelInput(){
         var result = await ipcRenderer.invoke('update-channel', channel)
         if(result = 1){
             $(':focus').trigger('blur')
-            updateChannelText()
         }
     })
 }
@@ -185,3 +177,8 @@ async function handleOverlayLock(){
         }
     })
 }
+
+ipcRenderer.on("update-channel-displays", function(event, data){    
+    $('.pfp').attr("src", `${data[0].replace('300x300', '70x70')}`)
+    $('#example-channelname').html(`${data[1]}`)
+})

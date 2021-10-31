@@ -1,6 +1,8 @@
+var https = require('https');
+
 var config = require('electron-json-config');
 
-const { BrowserWindow, ipcMain } = require('electron');
+const { BrowserWindow, ipcMain, app } = require('electron');
 const path = require('path')
 
 chatWindow = null
@@ -151,8 +153,35 @@ var twitch = require('./twitch_main.js')
 
 twitch.setChatWin(chatWindow)
 
-// update channel
+async function updateTwitchInfo(username){
+    const options = {
+        host: 'jgdif.com',
+        port: 443,
+        path: `/twitch/user/${username}`,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': 0,
+        }
+    }
 
+    return new Promise(async function(resolve, reject){
+        const req = await https.request(options, res => {
+            console.log(`statusCode: ${res.statusCode}`)
+            res.on('data', d => {
+                let schema = JSON.parse(d);
+                resolve(schema)
+            });
+        })
+        
+        req.on('error', error => {
+            console.log(error)
+            reject(error)
+        })
+
+        req.end()
+    })
+}
 
 const updateChannelText = (pref, value) => {
     // console.log(`Updating: ${pref}: ${value}`)
@@ -161,23 +190,42 @@ const updateChannelText = (pref, value) => {
 
 module.exports.updateChannelText = updateChannelText
 
+var badgeManager = require('./badge_manager.js')
+
+var mainWindow = null;
+var mainApp = null;
+const setMainWin = (window, app) => {
+    mainWindow = window
+    mainApp =  app
+}
+module.exports.setMainWin =setMainWin
+
 ipcMain.handle('update-channel', async function(event, channel){
-    config.set('channel', channel)
-  
+
+    var twitchInfo = await updateTwitchInfo(channel);
+    config.set('channel', twitchInfo['displayname'])
+    config.set('id', twitchInfo['id'])
+    config.set('pfp', twitchInfo['pfp'])
+    
+    badgeManager.refreshBadges(twitchInfo['id']);
+
+    if(mainWindow){
+        mainWindow.webContents.send("update-channel-displays", [twitchInfo['pfp'], twitchInfo['displayname']])
+    }
+
     // disconnects twitch bot
     twitch.disconnect()
-
+    
     // clears chat
     chatWindow.webContents.executeJavaScript(`document.getElementById('chat-box').innerHTML = ""`)
 
     // connects to new channel
     twitch.connect(channel)
-  
   })
 
 
   ipcMain.handle('connect-twitch', async function(event){
-    channel = config.get('channel', 'SaltyTeemo')
+    channel = config.get('channel', 'xQcOW')
     // console.log(`ipcMain Handler: connect-twitch => Channel: '${channel}'`)
     twitch.connect(channel)
   })
