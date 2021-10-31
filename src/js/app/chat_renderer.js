@@ -46,16 +46,27 @@ ipcRenderer.on('update-chat-text', function(event, pref, value){
         $('.chat-text').css(pref, value)
 })
 
+async function handleChannelInput(){
+
+    $("#channelname").on('keyup', function(event) {
+        if(event.key == 'Enter'){
+            $('#btn-update-channel').trigger('click')
+        }
+    })
+    $('#btn-update-channel').on('click', async function(){
+        var badges = await ipcRenderer.invoke(`get-badges`)
+        badgeParser.refreshBadges(badges)
+    })
+}
+
 // Updates the chat display
 ipcRenderer.on('update-chat', function(event, msg, context){
     updateChat(msg, context)
 })
 
-
-
 function updateChat(msg, context){
     new_time = config.get('idle.time')
-    console.log(`new time: ${new_time}sec`)
+    // console.log(`new time: ${new_time}sec`)
     idle.reset(new_time*1000)
 
     var newLine = document.createElement('li');
@@ -70,7 +81,7 @@ function updateChat(msg, context){
         username.style.color = 'green';
 
     username.innerText = context['display-name'];
-
+    
     var badgeList = badgeParser.getBadges(context['badges']);
 
     badgeList.forEach(element => newLine.append(element));
@@ -168,3 +179,5 @@ function getEmoteHTML(emoteId){
 
     return img
 }
+
+
