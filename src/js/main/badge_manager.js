@@ -66,7 +66,7 @@ async function getData(options, badgeType){
             config.set(`badges.${badgeType}`,schema['badge_sets'])
             if(badgeType == "channel"){
                 badges = schema['badge_sets']['subscriber']
-                mainWindow.webContents.send('sub-badges', badges)
+                // mainWindow.webContents.send('sub-badges', badges)
             }
         });
     })
@@ -92,7 +92,7 @@ ipcMain.handle(`get-badges`, async function(event){
             config.set(`badges.${badgeType}`,schema['badge_sets'])
             if(badgeType == "channel"){
                 badges = schema['badge_sets']['subscriber']
-                mainWindow.webContents.send('sub-badges', badges)
+                // mainWindow.webContents.send('sub-badges', badges)
             }
         });
     })

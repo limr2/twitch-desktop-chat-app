@@ -60,7 +60,7 @@ const open = () => {
         // disconnects the twitch bot
     })
 
-    chatWindow.webContents.openDevTools();
+    // chatWindow.webContents.openDevTools();
 }
 
 module.exports.open = open
@@ -155,7 +155,7 @@ twitch.setChatWin(chatWindow)
 
 async function updateTwitchInfo(username){
     const options = {
-        host: 'jgdif.com',
+        host: 'api.jgdif.com',
         port: 443,
         path: `/twitch/user/${username}`,
         method: 'GET',
