@@ -60,7 +60,7 @@ const open = () => {
         // disconnects the twitch bot
     })
 
-    // chatWindow.webContents.openDevTools();
+    chatWindow.webContents.openDevTools();
 }
 
 module.exports.open = open
@@ -83,7 +83,7 @@ const updatePrefs = (pref, data) => {
 
     // checks to make sure chatWindow exists
     if(!chatWindow){
-        console.log(`Error: chatWindow_main.js => updatePrefs(${pref}, ${data}) - chatWindow doesnt exist`)
+        console.log(`>>> Error: chatWindow_main.js => updatePrefs(${pref}, ${data}) - chatWindow doesnt exist`)
         return
     }
 
@@ -97,7 +97,7 @@ const updateFadeoutDelay = (time) => {
     
     // checks to make sure chatWindow exists
     if(!chatWindow){
-        console.log(`Error: chatWindow_main.js => updateFadeoutDelay(${time}) - chatWindow doesnt exist`)
+        console.log(`>>> Error: chatWindow_main.js => updateFadeoutDelay(${time}) - chatWindow doesnt exist`)
         return
     }
 
@@ -112,7 +112,7 @@ const lock = () => {
 
     // checks to make sure chatWindow exists
     if(!chatWindow){
-        console.log(`Error: chatWindow_main.js => lock() - chatWindow doesnt exist`)
+        console.log(`>>> Error: chatWindow_main.js => lock() - chatWindow doesnt exist`)
         return
     }
 
@@ -133,7 +133,7 @@ const unlock = () => {
 
     // checks to make sure chatWindow exists
     if(!chatWindow){
-        console.log(`Error: chatWindow_main.js => unlock() - chatWindow doesnt exist`)
+        console.log(`>>> Error: chatWindow_main.js => unlock() - chatWindow doesnt exist`)
         return
     }
 
@@ -167,20 +167,19 @@ async function updateTwitchInfo(username){
 
     return new Promise(async function(resolve, reject){
         const req = await https.request(options, res => {
-            console.log(`statusCode: ${res.statusCode}`)
+            console.log(`>>> statusCode: ${res.statusCode}`)
             if(res.statusCode == '400'){
-                // try again
+                reject(res.statusCode)
+                return
             }
-
+    
             res.on('data', d => {
                 let schema = JSON.parse(d);
                 resolve(schema)
             });
         })
-        
         req.on('error', error => {
-            console.log(error)
-            reject(error)
+            console.error(error)
         })
 
         req.end()
@@ -206,40 +205,47 @@ module.exports.setMainWin =setMainWin
 
 ipcMain.handle('update-channel', async function(event, channel){
 
-    var twitchInfo = await updateTwitchInfo(channel);
-
-    if(twitchInfo)
-
-
-    config.set('channel', twitchInfo['displayname'])
-    config.set('id', twitchInfo['id'])
-    config.set('pfp', twitchInfo['pfp'])
-    
-    badgeManager.refreshBadges(twitchInfo['id']);
-
-    if(mainWindow){
-        mainWindow.webContents.send("update-channel-displays", [twitchInfo['pfp'], twitchInfo['displayname']])
-    }
-
     // disconnects twitch bot
     twitch.disconnect()
     
     // clears chat
     chatWindow.webContents.executeJavaScript(`document.getElementById('chat-box').innerHTML = ""`)
 
-    // connects to new channel
-    twitch.connect(channel)
+    updateTwitchInfo(channel)
+        .then(schema => {
+            config.set('channel', schema['displayname'])
+            config.set('id', schema['id'])
+            config.set('pfp', schema['pfp'])
+            
+            badgeManager.refreshBadges(schema['id']);
+
+            if(mainWindow){
+                mainWindow.webContents.send("update-channel-displays", [schema['pfp'], schema['displayname']])
+                mainWindow.webContents.executeJavaScript('document.getElementById(`example-channeltext`).innerHTML = "hello this is some example text! thank you for using our app :)"')
+            }
+            
+            // connects to new channel
+            twitch.connect(channel)
+        })
+        .catch(error => {
+            let pfp = path.join(__dirname, '../../assests/asset1.jpg')
+            if(mainWindow){
+                mainWindow.webContents.send("update-channel-displays", [pfp, channel])
+                mainWindow.webContents.executeJavaScript('document.getElementById(`example-channeltext`).innerHTML = " is an invalid username. please click here to enter a new one."')
+            }
+        })    
   })
 
 
   ipcMain.handle('connect-twitch', async function(event){
     channel = config.get('channel', 'xQcOW')
     // console.log(`ipcMain Handler: connect-twitch => Channel: '${channel}'`)
+    // check if channel exists
     twitch.connect(channel)
   })
 
 ipcMain.handle('chat-window', async function(event, data){
-    console.log(`ipcMain recieved 'chat-window' : ${data}`)
+    console.log(`>>> ipcMain recieved 'chat-window' : ${data}`)
     if(data == 'lock'){
         lock()
     }

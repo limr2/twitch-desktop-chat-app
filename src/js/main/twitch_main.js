@@ -12,7 +12,7 @@ const connect = (channelName) => {
 
     // Disconnects current connection if applicable
     if(client) {
-        console.log("Disconnecting...")
+        console.log(">>> Disconnecting...")
         client.disconnect()
     }
     
@@ -26,14 +26,14 @@ const connect = (channelName) => {
     client.on('message', onMessageHandler);
 
     // Connects to twitch channel:
-    console.log(`twitch_main.js: connect() => Connecting to '${channelName}'`)
+    console.log(`>>> twitch_main.js: connect() => Connecting to '${channelName}'`)
     client.connect();
 }
 
 module.exports.connect = connect
 
 const disconnect = () => {
-    console.log('disconnecting')
+    console.log('>>> disconnecting')
     if(client)
         client.disconnect()
     client =  null
@@ -42,7 +42,7 @@ const disconnect = () => {
 module.exports.disconnect = disconnect
 
 const reconnect = (channelName) => {
-    console.log("reconnecting")
+    console.log(">>> reconnecting")
     disconnect()
     connect(channelName)
 }
@@ -64,11 +64,11 @@ function onMessageHandler (target, context, msg, self) {
         chatWindow.webContents.send('update-chat', msg, context)
     }
     else{
-        console.log(`Error: twitch_main.js: onMessageHandler() => chatWindow = null`)
+        console.log(`>>> Error: twitch_main.js: onMessageHandler() => chatWindow = null`)
     }
 }
  
  // Called every time the bot connects to Twitch chat
 function onConnectedHandler (addr, port) {
-    console.log(`* Connected to ${addr}:${port}`);
+    console.log(`>>> * Connected to ${addr}:${port}`);
 }

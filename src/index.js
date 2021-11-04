@@ -63,7 +63,7 @@ const createWindow = () => {
     
   })
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -114,7 +114,3 @@ ipcMain.handle('close-app-window', async function(event){
 // create overlay window
 
 var chatWindow = require('./js/main/chatWindow_main.js')
-
-var test = require('./js/chat/emotes/twitch-sub-badges.js')
-
-console.log(test.refreshSubBadges())
