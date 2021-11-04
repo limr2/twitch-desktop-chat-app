@@ -86,4 +86,10 @@ const getBadges = (badges) => {
 
 }
 
+
+
+let x = 0
+var y = 0
+const z = 0
+
 module.exports.getBadges = getBadges

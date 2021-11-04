@@ -168,6 +168,10 @@ async function updateTwitchInfo(username){
     return new Promise(async function(resolve, reject){
         const req = await https.request(options, res => {
             console.log(`statusCode: ${res.statusCode}`)
+            if(res.statusCode == '400'){
+                // try again
+            }
+
             res.on('data', d => {
                 let schema = JSON.parse(d);
                 resolve(schema)
@@ -203,6 +207,10 @@ module.exports.setMainWin =setMainWin
 ipcMain.handle('update-channel', async function(event, channel){
 
     var twitchInfo = await updateTwitchInfo(channel);
+
+    if(twitchInfo)
+
+
     config.set('channel', twitchInfo['displayname'])
     config.set('id', twitchInfo['id'])
     config.set('pfp', twitchInfo['pfp'])
