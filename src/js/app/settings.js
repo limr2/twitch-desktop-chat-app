@@ -56,17 +56,17 @@ async function loadPrefs(){
     $('#channelname').val(channel)
     // $('#example-channelname').html(`${channel} `)
 
-    console.log(`Locked: ${locked}`)
+    console.log(`>>> Locked: ${locked}`)
     if(locked){
         $('#toggle-lock').addClass('locked')
         $('#toggle-lock').data('locked', true)
         await ipcRenderer.invoke('chat-window', 'lock')
-        console.log('sent lock')
+        console.log('>>> sent lock')
     } else {        
         $('#toggle-lock').addClass('unlocked')
         $('#toggle-lock').data('locked', false)
         await ipcRenderer.invoke('chat-window', 'unlock')
-        console.log('sent unlock')
+        console.log('>>> sent unlock')
     }
 
     
@@ -154,10 +154,9 @@ async function handleFadeDelayInput() {
 async function handleOverlayLock(){
 
     $('#toggle-lock').on('click', async function(){
-        console.log('clicked toggle lock')
-        console.log()
+        console.log('>>> clicked toggle lock')
         if(!$(this).data('locked')){
-            console.log('locking')
+            console.log('>>> locking')
             var result = await ipcRenderer.invoke('chat-window', 'lock')
             if(result = 1){
                 $(this).removeClass('unlocked')
@@ -166,7 +165,7 @@ async function handleOverlayLock(){
             }
             return
         } else {
-            console.log('unlocking')
+            console.log('>>> unlocking')
             var result = await ipcRenderer.invoke('chat-window', 'unlock')
             if(result = 1){
                 $(this).removeClass('locked')

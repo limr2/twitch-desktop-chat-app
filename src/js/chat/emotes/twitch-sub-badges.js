@@ -28,7 +28,7 @@ const refreshGlobalBadges = async () => {
     }
 
     const badges = await https.request(options, res => {
-        console.log(`statusCode: ${res.statusCode}`)
+        console.log(`>>> statusCode: ${res.statusCode}`)
       
         let chunks = [];
         res.on('data', raw_data => {
@@ -47,7 +47,7 @@ const refreshGlobalBadges = async () => {
 
     req.end()
 
-    console.log(`badges: ${badges}`)
+    console.log(`>>> badges: ${badges}`)
 }
 // updates local badges
 // called once on started

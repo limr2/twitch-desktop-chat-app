@@ -15,7 +15,7 @@ chatFontColor = null
 $(function(){
     loadConfig()
 
-    console.log('chat_render.js: init() => ipcRenderer: connect-twitch')
+    console.log('>>> chat_render.js: init() => ipcRenderer: connect-twitch')
     ipcRenderer.invoke('connect-twitch')
 
     idle.start()
@@ -39,7 +39,7 @@ function setPersistedSettings(){
 }
 
 ipcRenderer.on('update-chat-text', function(event, pref, value){
-    console.log(`Updating: ${pref}: ${value}`)
+    console.log(`>>> Updating: ${pref}: ${value}`)
     if(pref == 'font-size')
     $('.chat-text').css('font-size', value + 'px')
     if(pref == 'opacity')

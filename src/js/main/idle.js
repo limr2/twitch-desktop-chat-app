@@ -19,7 +19,7 @@ function loadConfig(){
     enabled = config.get('idle.enabled', true)
     // idle.time saved in seconds, need x1000 because idle timer in miliseconds
     time = parseInt(config.get('idle.time', 15))
-    console.log(`idle.js: loadConfig() => time: ${time}`)
+    console.log(`>>> idle.js: loadConfig() => time: ${time}`)
     
 }
 
@@ -31,7 +31,7 @@ ipcRenderer.on('update-fadeout-delay', function(event, newDelay){
 
 // initializes the timer
 function init() {   
-    console.log(`idle.js: init()`)
+    console.log(`>>> idle.js: init()`)
     
     var options = {
         refreshRateMS: 1000
@@ -42,7 +42,7 @@ function init() {
     //     console.log(`Time Left: ${time.ms}`)
     // })
     idleTimer.onDone(function(){
-        console.log(`idle.js: init() => Fading out`)
+        console.log(`>>> idle.js: init() => Fading out`)
         if(time != 0)
             $('.chat-text').fadeOut()
     })
@@ -50,7 +50,7 @@ function init() {
 
 // starts idle timer
 const start = () => {
-    console.log(`idle.js: start() => enabled: ${enabled}`)
+    console.log(`>>> idle.js: start() => enabled: ${enabled}`)
 
     if(enabled){
         idleTimer.start()
@@ -72,14 +72,14 @@ const reset = () => {
 module.exports.reset = reset
 
 const pause = () => {
-    console.log(`idle.js: pause()`)
+    console.log(`>>> idle.js: pause()`)
     idleTimer.pause()
 }
 
 module.exports.pause = pause
 
 const stop = () => {
-    console.log(`idle.js: stop()`)
+    console.log(`>>> idle.js: stop()`)
     idleTimer.stop()
 }
 
