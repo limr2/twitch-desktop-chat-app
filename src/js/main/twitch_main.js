@@ -12,8 +12,7 @@ const connect = (channelName) => {
 
     // Disconnects current connection if applicable
     if(client) {
-        console.log(">>> Disconnecting...")
-        client.disconnect()
+        disconnect()
     }
     
     // Creates new client to connect to channel
@@ -33,9 +32,10 @@ const connect = (channelName) => {
 module.exports.connect = connect
 
 const disconnect = () => {
-    console.log('>>> disconnecting')
-    if(client)
+    if(client){
+        console.log(`>>> Disconnecting from ${client.getChannels()[0]}`)
         client.disconnect()
+    }
     client =  null
 }
 

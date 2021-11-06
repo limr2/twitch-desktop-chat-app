@@ -16,6 +16,7 @@ const open = () => {
     chatWindow = new BrowserWindow({
         minWidth: 200,
         minHeight: 200,
+        backgroundColor: '#00000000',
         transparent: true,
         frame: false,
         icon: path.join(__dirname, '../../img/icon.png'),
@@ -167,7 +168,7 @@ async function updateTwitchInfo(username){
 
     return new Promise(async function(resolve, reject){
         const req = await https.request(options, res => {
-            console.log(`>>> statusCode: ${res.statusCode}`)
+            // console.log(`>>> statusCode: ${res.statusCode}`)
             if(res.statusCode == '400'){
                 reject(res.statusCode)
                 return

@@ -1,8 +1,10 @@
 // Badges
 const https = require('https')
+const config = require('electron-json-config')
 
 var globalBadges = null
 var subBadges = null
+var twitchID = null
 
 
 function startup(twitchID){
@@ -11,11 +13,17 @@ function startup(twitchID){
     refreshGlobalBadges()
 
     // refreshes sub badges
-    refreshSubBadges()
+
+    // TODO:    - double check this is where we save it? idk
+    //          - needs a default value
+    twitchID = config.get('user.id')
+
+    refreshSubBadges(twitchID)
 
 }
 
 const refreshGlobalBadges = async () => {
+
     const options = {
         host: 'badges.twitch.tv',
         port: 443,
@@ -27,32 +35,37 @@ const refreshGlobalBadges = async () => {
         }
     }
 
-    const badges = await https.request(options, res => {
-        console.log(`>>> statusCode: ${res.statusCode}`)
+    const req = await https.request(options, res => {
+        if(res.statusCode != 200) return
       
         let chunks = [];
+
         res.on('data', raw_data => {
             chunks.push(raw_data);
             }).on('end', function() {
             let data   = Buffer.concat(chunks);
-            let _badges = JSON.parse(data);
-            return _badges
+            globalBadges = JSON.parse(data)['badge_sets'];
+            console.log(globalBadgeList)
+            console.log(2)
         });
     })
-      
-
+    
     req.on('error', error => {
         console.error(error)
     })
 
     req.end()
 
-    console.log(`>>> badges: ${badges}`)
+    console.log(1)
 }
+module.exports.refreshGlobalBadges = refreshGlobalBadges
+
 // updates local badges
 // called once on started
 // needs to be called everytime channel is changed
-const refreshSubBadges = (twitchID) => {
+const refreshSubBadges = async (twitchID) => {
+
+    
 
 }
 module.exports.refreshSubBadges = refreshSubBadges
@@ -64,7 +77,6 @@ const getBadges = (badges) => {
 
     // returns if badges is empty
     if(!badges) return
-
 
     let badgeList = []
 

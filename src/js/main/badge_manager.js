@@ -55,7 +55,7 @@ var badges = null;
 async function getData(options, badgeType){
 
     const req = await https.request(options, res => {
-        console.log(`>>> statusCode: ${res.statusCode}`)
+        // console.log(`>>> statusCode: ${res.statusCode}`)
       
         let chunks = [];
         res.on('data', d => {
@@ -81,7 +81,7 @@ async function getData(options, badgeType){
 ipcMain.handle(`get-badges`, async function(event){
 
     const req = await https.request(options, res => {
-        console.log(`>>> statusCode: ${res.statusCode}`)
+        // console.log(`>>> statusCode: ${res.statusCode}`)
       
         let chunks = [];
         res.on('data', d => {
