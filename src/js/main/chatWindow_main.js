@@ -194,7 +194,7 @@ const updateChannelText = (pref, value) => {
 
 module.exports.updateChannelText = updateChannelText
 
-var badgeManager = require('./badge_manager.js')
+// var badgeManager = require('../chat/emotes/twitch-badges')
 
 var mainWindow = null;
 var mainApp = null;
@@ -208,9 +208,6 @@ ipcMain.handle('update-channel', async function(event, channel){
 
     // disconnects twitch bot
     twitch.disconnect()
-    
-    // clears chat
-    chatWindow.webContents.executeJavaScript(`document.getElementById('chat-box').innerHTML = ""`)
 
     updateTwitchInfo(channel)
         .then(schema => {
@@ -218,7 +215,7 @@ ipcMain.handle('update-channel', async function(event, channel){
             config.set('id', schema['id'])
             config.set('pfp', schema['pfp'])
             
-            badgeManager.refreshBadges(schema['id']);
+            // badgeManager.refreshSubBadges(schema['id']);
 
             if(mainWindow){
                 mainWindow.webContents.send("update-channel-displays", [schema['pfp'], schema['displayname']])
@@ -234,7 +231,9 @@ ipcMain.handle('update-channel', async function(event, channel){
                 mainWindow.webContents.send("update-channel-displays", [pfp, channel])
                 mainWindow.webContents.executeJavaScript('document.getElementById(`example-channeltext`).innerHTML = " is an invalid username. please click here to enter a new one."')
             }
-        })    
+        })  
+    // clears chat
+    chatWindow.webContents.executeJavaScript(`document.getElementById('chat-box').innerHTML = ""`)  
   })
 
 

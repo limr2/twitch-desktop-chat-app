@@ -1,26 +1,26 @@
 // Badges
 const https = require('https')
 const config = require('electron-json-config')
+const twitchAPI = require('../../api/twitch-api')
 
 var globalBadges = null
 var subBadges = null
-var twitchID = null
 
 
-function startup(twitchID){
+const startup = (twitchID) => {
 
-    // refreshes global twitch badges
-    refreshGlobalBadges()
+    return new Promise(async function(resolve, reject){
+        
+        // refreshes global twitch badges
+        // refreshGlobalBadges()
 
-    // refreshes sub badges
-
-    // TODO:    - double check this is where we save it? idk
-    //          - needs a default value
-    twitchID = config.get('user.id')
-
-    refreshSubBadges(twitchID)
+        // refreshes sub badges
+        await refreshSubBadges(twitchID)
+        resolve()
+    })
 
 }
+module.exports.startup = startup
 
 const refreshGlobalBadges = async () => {
 
@@ -45,8 +45,8 @@ const refreshGlobalBadges = async () => {
             }).on('end', function() {
             let data   = Buffer.concat(chunks);
             globalBadges = JSON.parse(data)['badge_sets'];
-            console.log(globalBadgeList)
-            console.log(2)
+            // console.log(globalBadgeList)
+            // console.log(2)
         });
     })
     
@@ -60,15 +60,34 @@ const refreshGlobalBadges = async () => {
 }
 module.exports.refreshGlobalBadges = refreshGlobalBadges
 
-// updates local badges
-// called once on started
-// needs to be called everytime channel is changed
-const refreshSubBadges = async (twitchID) => {
 
+// updates local badges
+// called once on app start
+// needs to be called everytime the apps twitch channel is changed
+const refreshSubBadges = async (twitchID) => {
+    // console.log(`attempting refresh ${twitchID}`)
+    return new Promise(async function(resolve, reject){
+        console.log('STARTED GETTING BADGES')
+        subBadges = await twitchAPI.getBadges(twitchID)
+        if(subBadges) if(subBadges['subscriber']) if(subBadges['subscriber']['versions'])
+            subBadges = subBadges['subscriber']['versions']
+        console.log('FINISHED GETTING BADGES')
+        resolve()
+    })
+    
     
 
 }
 module.exports.refreshSubBadges = refreshSubBadges
+
+
+// gets current instances/channels subBadges object
+const getCurrentChannelSubBadges = () => {
+    // console.log(subBadges)
+    return subBadges
+}
+
+module.exports.getCurrentChannelSubBadges = getCurrentChannelSubBadges
 
 
 // returns list of html img elements witht he badge
@@ -97,11 +116,5 @@ const getBadges = (badges) => {
     return badgeList
 
 }
-
-
-
-let x = 0
-var y = 0
-const z = 0
 
 module.exports.getBadges = getBadges

@@ -115,15 +115,4 @@ ipcMain.handle('close-app-window', async function(event){
 
 var chatWindow = require('./js/main/chatWindow_main.js')
 
-var bm = require('./js/api/twitch-api.js')
-
-// rose's twitch id
-var t_id = 152928496
-
-
-async function test(){
-  let x = await bm.getBadges(15234534532453246543768768795)
-  console.log(`>>>>>>>>>>>>>> x: ${JSON.stringify(x, null, 4)}`)
-}
-
-test()
+// rose's twitch id 152928496

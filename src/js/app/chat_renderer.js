@@ -3,20 +3,22 @@ var config = require('electron-json-config')
 // const twitch = require('./js/chat/twitch.js')
 const idle = require('./js/main/idle.js')
 const { ipcRenderer } = require('electron')
-const badgeParser = require('./js/main/badges.js')
 
 
 channelName = null
 chatOpacity = null
 chatFontSize = null
 chatFontColor = null
+// var badgeParser = null
 
 // runs after page loaded
 $(function(){
     loadConfig()
+    // handleChannelInput()
 
     console.log('>>> chat_render.js: init() => ipcRenderer: connect-twitch')
     ipcRenderer.invoke('connect-twitch')
+    
 
     idle.start()
 })
@@ -54,17 +56,16 @@ async function handleChannelInput(){
         }
     })
     $('#btn-update-channel').on('click', async function(){
-        var badges = await ipcRenderer.invoke(`get-badges`)
-        badgeParser.refreshBadges(badges)
+        badgeParser = await ipcRenderer.invoke(`get-badges`)
     })
 }
 
 // Updates the chat display
-ipcRenderer.on('update-chat', function(event, msg, context){
-    updateChat(msg, context)
+ipcRenderer.on('update-chat', function(event, msg, context, badgeParser){
+    updateChat(msg, context, badgeParser)
 })
 
-function updateChat(msg, context){
+function updateChat(msg, context, currentChannelSubBadges){
     new_time = config.get('idle.time')
     // console.log(`new time: ${new_time}sec`)
     idle.reset(new_time*1000)
@@ -82,9 +83,10 @@ function updateChat(msg, context){
 
     username.innerText = context['display-name'];
     
-    var badgeList = badgeParser.getBadges(context['badges']);
+    var badgeList = getBadges(currentChannelSubBadges, context['badges']);
 
-    badgeList.forEach(element => newLine.append(element));
+    if(badgeList)
+        badgeList.forEach(element => newLine.append(element));
 
     newLine.append(username)
     newLine.append(":")
@@ -181,3 +183,27 @@ function getEmoteHTML(emoteId){
 }
 
 
+const getBadges = (currentChannelSubBadges, badges) => {
+
+    // returns if badges is empty
+    if(!badges) return
+
+    let badgeList = []
+
+    for (const [key, value] of Object.entries(badges)) {
+        let badge = document.createElement('img')
+        badge.classList.add('badge')
+        // is subscriber badge?
+        if(key == 'subscriber'){
+            // get subscriber badge
+            badge.src = currentChannelSubBadges[value]['image_url_1x']
+        } else{
+            // get another badge
+            badge.src = config.get(`badges.global.${key}.versions.${value}.image_url_1x`)
+        }
+        badgeList.push(badge)
+    }
+    badgeList.push(' ')
+    return badgeList
+
+}

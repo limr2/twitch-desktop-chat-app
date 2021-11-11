@@ -5,10 +5,23 @@ const { ipcMain } = require('electron');
 
 var client = null;
 
-const connect = (channelName) => {
+// on start refreshes global and sub badges of saved channel (channel from config)
+var twitchBadgesManager = require('../chat/emotes/twitch-badges.js')
 
+var currentChannelSubBadges = null
+
+
+const connect = async (channelName) => {
+   
     // Returns if no channel
     if(!channelName) return
+
+
+    console.log('step1 connect started')
+    await twitchBadgesManager.startup(config.get('id'))
+    currentChannelSubBadges = twitchBadgesManager.getCurrentChannelSubBadges()
+    // console.log(`currentChannelSubBadges: ${currentChannelSubBadges}`)
+    console.log('step1 connect completed')
 
     // Disconnects current connection if applicable
     if(client) {
@@ -61,7 +74,7 @@ module.exports.setChatWin =setChatWin
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
     if(chatWindow){
-        chatWindow.webContents.send('update-chat', msg, context)
+        chatWindow.webContents.send('update-chat', msg, context, currentChannelSubBadges)
     }
     else{
         console.log(`>>> Error: twitch_main.js: onMessageHandler() => chatWindow = null`)
