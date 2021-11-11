@@ -12,7 +12,10 @@ const startup = (twitchID) => {
     return new Promise(async function(resolve, reject){
         
         // refreshes global twitch badges
-        // refreshGlobalBadges()
+        console.log(`before refresh globalBadges: ${globalBadges}`)
+        await refreshGlobalBadges()
+        console.log(`after refresh globalBadges: ${globalBadges}`)
+
 
         // refreshes sub badges
         await refreshSubBadges(twitchID)
@@ -23,71 +26,47 @@ const startup = (twitchID) => {
 module.exports.startup = startup
 
 const refreshGlobalBadges = async () => {
-
-    const options = {
-        host: 'badges.twitch.tv',
-        port: 443,
-        path: '/v1/badges/global/display',
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': 0,
-        }
-    }
-
-    const req = await https.request(options, res => {
-        if(res.statusCode != 200) return
-      
-        let chunks = [];
-
-        res.on('data', raw_data => {
-            chunks.push(raw_data);
-            }).on('end', function() {
-            let data   = Buffer.concat(chunks);
-            globalBadges = JSON.parse(data)['badge_sets'];
-            // console.log(globalBadgeList)
-            // console.log(2)
-        });
+    return new Promise(async function(resolve, reject){
+        globalBadges = await twitchAPI.getGlobalBadges()
+        resolve()
     })
     
-    req.on('error', error => {
-        console.error(error)
-    })
-
-    req.end()
-
-    console.log(1)
 }
 module.exports.refreshGlobalBadges = refreshGlobalBadges
 
 
-// updates local badges
-// called once on app start
-// needs to be called everytime the apps twitch channel is changed
+// updates 'subBadges' object to the twitch channel with specified twitch id
 const refreshSubBadges = async (twitchID) => {
-    // console.log(`attempting refresh ${twitchID}`)
     return new Promise(async function(resolve, reject){
-        console.log('STARTED GETTING BADGES')
+
+        // gets badges from twitch api with specific twitch id
         subBadges = await twitchAPI.getBadges(twitchID)
+
+        // because of await, after twitch api has received its response then does rest of function
+
+        // if channel has badges, then set its badges
         if(subBadges) if(subBadges['subscriber']) if(subBadges['subscriber']['versions'])
             subBadges = subBadges['subscriber']['versions']
-        console.log('FINISHED GETTING BADGES')
+
+        // resolve the promise
         resolve()
     })
-    
-    
-
 }
 module.exports.refreshSubBadges = refreshSubBadges
 
 
 // gets current instances/channels subBadges object
 const getCurrentChannelSubBadges = () => {
-    // console.log(subBadges)
     return subBadges
 }
-
 module.exports.getCurrentChannelSubBadges = getCurrentChannelSubBadges
+
+// gets current instances/channels subBadges object
+const getCurrentGlobalBadges = () => {
+    return globalBadges
+}
+
+module.exports.getCurrentGlobalBadges = getCurrentGlobalBadges
 
 
 // returns list of html img elements witht he badge

@@ -13,7 +13,7 @@ function getBBTVEmoteHTML(emoteId){
 
 // takes word and converts it to bttv link if its in emote list
 const parseBttvEmote = (line) => {
-    console.log(line)
+    // console.log(line)
     // check if word is in emote list 
     // if in word list, get id
     id = 0;

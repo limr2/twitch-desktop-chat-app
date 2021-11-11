@@ -5,11 +5,10 @@ const idle = require('./js/main/idle.js')
 const { ipcRenderer } = require('electron')
 
 
-channelName = null
-chatOpacity = null
-chatFontSize = null
-chatFontColor = null
-// var badgeParser = null
+var channelName = null
+var chatOpacity = null
+var chatFontSize = null
+var chatFontColor = null
 
 // runs after page loaded
 $(function(){
@@ -61,13 +60,13 @@ async function handleChannelInput(){
 }
 
 // Updates the chat display
-ipcRenderer.on('update-chat', function(event, msg, context, badgeParser){
-    updateChat(msg, context, badgeParser)
+ipcRenderer.on('update-chat', function(event, msg, context, badgeParser, currentGlobalBadges){
+    updateChat(msg, context, badgeParser, currentGlobalBadges)
 })
 
-function updateChat(msg, context, currentChannelSubBadges){
+function updateChat(msg, context, currentChannelSubBadges, currentGlobalBadges){
+    console.log(`currentGlobalBadges: ${currentGlobalBadges}`)
     new_time = config.get('idle.time')
-    // console.log(`new time: ${new_time}sec`)
     idle.reset(new_time*1000)
 
     var newLine = document.createElement('li');
@@ -83,7 +82,7 @@ function updateChat(msg, context, currentChannelSubBadges){
 
     username.innerText = context['display-name'];
     
-    var badgeList = getBadges(currentChannelSubBadges, context['badges']);
+    var badgeList = getBadges(currentChannelSubBadges, currentGlobalBadges, context['badges']);
 
     if(badgeList)
         badgeList.forEach(element => newLine.append(element));
@@ -183,7 +182,7 @@ function getEmoteHTML(emoteId){
 }
 
 
-const getBadges = (currentChannelSubBadges, badges) => {
+const getBadges = (currentChannelSubBadges, currentGlobalBadges, badges) => {
 
     // returns if badges is empty
     if(!badges) return
@@ -199,7 +198,8 @@ const getBadges = (currentChannelSubBadges, badges) => {
             badge.src = currentChannelSubBadges[value]['image_url_1x']
         } else{
             // get another badge
-            badge.src = config.get(`badges.global.${key}.versions.${value}.image_url_1x`)
+            console.log(`key + value = ${key} + ${value}`)
+            badge.src = currentGlobalBadges[key]['versions'][value]['image_url_1x']
         }
         badgeList.push(badge)
     }

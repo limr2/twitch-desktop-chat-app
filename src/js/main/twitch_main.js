@@ -9,19 +9,18 @@ var client = null;
 var twitchBadgesManager = require('../chat/emotes/twitch-badges.js')
 
 var currentChannelSubBadges = null
-
+var currentGlobalBadges = null
 
 const connect = async (channelName) => {
    
     // Returns if no channel
     if(!channelName) return
 
-
-    console.log('step1 connect started')
     await twitchBadgesManager.startup(config.get('id'))
     currentChannelSubBadges = twitchBadgesManager.getCurrentChannelSubBadges()
-    // console.log(`currentChannelSubBadges: ${currentChannelSubBadges}`)
-    console.log('step1 connect completed')
+    console.log(currentGlobalBadges == null)
+    currentGlobalBadges = twitchBadgesManager.getCurrentGlobalBadges()
+    console.log(currentGlobalBadges == null)
 
     // Disconnects current connection if applicable
     if(client) {
@@ -74,7 +73,7 @@ module.exports.setChatWin =setChatWin
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
     if(chatWindow){
-        chatWindow.webContents.send('update-chat', msg, context, currentChannelSubBadges)
+        chatWindow.webContents.send('update-chat', msg, context, currentChannelSubBadges, currentGlobalBadges)
     }
     else{
         console.log(`>>> Error: twitch_main.js: onMessageHandler() => chatWindow = null`)

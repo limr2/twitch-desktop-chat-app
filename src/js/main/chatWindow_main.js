@@ -220,7 +220,7 @@ ipcMain.handle('update-channel', async function(event, channel){
 
             if(mainWindow){
                 mainWindow.webContents.send("update-channel-displays", [schema['pfp'], schema['displayname']])
-                mainWindow.webContents.executeJavaScript('document.getElementById(`example-channeltext`).innerHTML = "hello this is some example text! thank you for using our app :)"')
+                mainWindow.webContents.executeJavaScript('document.getElementById(`example-channeltext`).innerHTML = ": Example text! Thank you for twichat :)"')
             }
             
             // connects to new channel
@@ -234,7 +234,7 @@ ipcMain.handle('update-channel', async function(event, channel){
             let pfp = path.join(__dirname, '../../assests/asset1.jpg')
             if(mainWindow){
                 mainWindow.webContents.send("update-channel-displays", [pfp, channel])
-                mainWindow.webContents.executeJavaScript('document.getElementById(`example-channeltext`).innerHTML = " is an invalid username. please click here to enter a new one."')
+                mainWindow.webContents.executeJavaScript('document.getElementById(`example-channeltext`).innerHTML = ": not found. Click here to fix')
             }
         })  
     // clears chat
