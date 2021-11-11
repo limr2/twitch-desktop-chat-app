@@ -9,6 +9,7 @@ chatWindow = null
 winBounds = config.get('window.chat.bounds')
 
 
+var bttvApi = require('../api/bttv-api.js')
 
 const open = () => {
     
@@ -224,8 +225,12 @@ ipcMain.handle('update-channel', async function(event, channel){
             
             // connects to new channel
             twitch.connect(channel)
+
+            //badgeManager.refreshBadges(schema['id']);
+            bttvApi.getBttvEmotes(schema['id']);
         })
         .catch(error => {
+            console.log(error)
             let pfp = path.join(__dirname, '../../assests/asset1.jpg')
             if(mainWindow){
                 mainWindow.webContents.send("update-channel-displays", [pfp, channel])
