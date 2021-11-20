@@ -42,7 +42,6 @@ const createWindow = () => {
   // disables resizing of window (TBD if in final version)
   mainWindow.setResizable(false)
 
-
   // loads main page of the app
   mainWindow.loadFile(path.join(__dirname, 'app.html'));
   

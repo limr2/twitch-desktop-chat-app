@@ -60,12 +60,14 @@ async function loadPrefs(){
     if(locked){
         $('#toggle-lock').addClass('locked')
         $('#toggle-lock').data('locked', true)
+        $('#toggle-lock').html('unlock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
         await ipcRenderer.invoke('chat-window', 'lock')
         console.log('>>> sent lock')
     } else {        
         $('#toggle-lock').addClass('unlocked')
         $('#toggle-lock').data('locked', false)
         await ipcRenderer.invoke('chat-window', 'unlock')
+        $('#toggle-lock').html('lock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
         console.log('>>> sent unlock')
     }
 
@@ -162,6 +164,7 @@ async function handleOverlayLock(){
                 $(this).removeClass('unlocked')
                 $(this).addClass('locked')
                 $(this).data('locked', true)
+                $(this).html('unlock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
             }
             return
         } else {
@@ -171,6 +174,7 @@ async function handleOverlayLock(){
                 $(this).removeClass('locked')
                 $(this).addClass('unlocked')
                 $(this).data('locked', false)
+                $(this).html('lock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
             }
             return
         }

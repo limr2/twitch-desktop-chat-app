@@ -27,10 +27,18 @@ const open = () => {
             enableRemoteModule: true
         }
     });
-
     // forces window to always be in front
-    chatWindow.setAlwaysOnTop(true, 'screen');
+
+
+    // if mac must use app.dock.hide()
+            // app.dock.hide();
     
+    chatWindow.setSkipTaskbar(true);
+    chatWindow.setAlwaysOnTop(true, "floating");
+    chatWindow.setVisibleOnAllWorkspaces(true);
+    chatWindow.setFullScreenable(false);
+
+
     // sets window position/size from previous instance
     // default bounds:                           {x: 100, y: 100, width: 400, height: 800}
     winBounds = config.get('window.chat.bounds', {x: 100, y: 100, width: 400, height: 800})
