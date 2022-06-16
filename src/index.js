@@ -33,8 +33,7 @@ const createWindow = () => {
     chatWindow.open()
     chatWindow.setMainWin(mainWindow, app);
   }) 
-   
-
+  
   // set bounds of window (location and size)
   winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 400, height: 450})
   mainWindow.setBounds(winBounds)

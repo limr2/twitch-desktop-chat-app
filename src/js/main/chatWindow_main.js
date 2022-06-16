@@ -33,10 +33,11 @@ const open = () => {
     // if mac must use app.dock.hide()
             // app.dock.hide();
     
-    chatWindow.setSkipTaskbar(true);
+    // chatWindow.setSkipTaskbar(true);
     chatWindow.setAlwaysOnTop(true, "floating");
-    chatWindow.setVisibleOnAllWorkspaces(true);
-    chatWindow.setFullScreenable(false);
+    // chatWindow.setVisibleOnAllWorkspaces(true);
+    // chatWindow.setFullScreenable(false);
+    // chatWindow.setMinimizable(false); fullscreen:true
 
 
     // sets window position/size from previous instance
