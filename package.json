@@ -1,7 +1,7 @@
 {
   "name": "twichat",
   "productName": "twichat",
-  "version": "0.2.0-BETA",
+  "version": "0.6.9-BETA",
   "description": "A customizable twitch chat overlay for your games or any app",
   "main": "src/index.js",
   "scripts": {
@@ -24,7 +24,6 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "test"
           }
         },
         {

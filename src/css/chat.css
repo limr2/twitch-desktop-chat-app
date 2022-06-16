@@ -53,8 +53,12 @@ body {
 }
 
 .frame {
-  border: 3px solid white;
-  border-style: groove
+  border: 5px solid rgba(26, 26, 26, 0.815);
+  border-style: groove;
+}
+
+.highlight {
+  background-color: rgba(161, 66, 255, 0.5);
 }
 
 #chat-container{

@@ -2,3 +2,4 @@ node_modules
 out
 cert/derek_comella.p12
 package.json
+cert

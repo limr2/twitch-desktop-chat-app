@@ -28,16 +28,7 @@ const open = () => {
         }
     });
     // forces window to always be in front
-
-
-    // if mac must use app.dock.hide()
-            // app.dock.hide();
-    
-    // chatWindow.setSkipTaskbar(true);
-    chatWindow.setAlwaysOnTop(true, "floating");
-    // chatWindow.setVisibleOnAllWorkspaces(true);
-    // chatWindow.setFullScreenable(false);
-    // chatWindow.setMinimizable(false); fullscreen:true
+    chatWindow.setAlwaysOnTop(true, 'screen');
 
 
     // sets window position/size from previous instance

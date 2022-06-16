@@ -10,6 +10,8 @@ var chatOpacity = null
 var chatFontSize = null
 var chatFontColor = null
 
+var nonFirstTimeChatter = new Set();
+
 // runs after page loaded
 $(function(){
     loadConfig()
@@ -89,6 +91,16 @@ function updateChat(msg, context, currentChannelSubBadges, currentGlobalBadges){
 
     newLine.append(username)
     newLine.append(":")
+
+
+    // Highlight Message if First Time Chatter (for that stream)
+    let displayname = context['display-name'];
+    if (!nonFirstTimeChatter.has(displayname)) {
+        // highlight the newLine
+        newLine.classList.add('highlight')
+        // add chatter to list of non firsttimechatters
+        nonFirstTimeChatter.add(displayname)
+    }
 
     parseEmotes(newLine, msg, context)
 
