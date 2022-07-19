@@ -77,12 +77,16 @@ function updateChat(msg, context, currentChannelSubBadges, currentGlobalBadges){
     newLine.classList.add('line');
     username.classList.add('username');
 
+
     username.style.color = context['color'];
 
     if(context['color'] == null)
         username.style.color = 'green';
 
     username.innerText = context['display-name'];
+    
+    let hidden = ['streamelements', 'roseiol', 'playwithviewersbot']
+    if(hidden.includes(String(context['display-name']).toLowerCase())) return
     
     var badgeList = getBadges(currentChannelSubBadges, currentGlobalBadges, context['badges']);
 
