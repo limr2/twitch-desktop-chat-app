@@ -34,7 +34,7 @@ const createWindow = () => {
   }) 
   
   // set bounds of window (location and size)
-  winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 400, height: 450})
+  winBounds = config.get('window.app.bounds', {x: 550, y: 225, width: 350, height: 500})
   mainWindow.setBounds(winBounds)
 
   // disables resizing of window (TBD if in final version)

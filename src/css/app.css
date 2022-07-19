@@ -26,19 +26,27 @@ body {
   padding-bottom: 12px;
   height: calc(100% - 20px);
   display: grid;
-  grid-template-rows: 90px 4fr 2fr;
+  grid-template-rows: 240px 4fr;
   row-gap: 20px;
 }
 
 .top{
   display: grid;
-  border: 2px solid #2e2e35;
-  border-radius: 15px;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  height: 94px;
-  grid-template-columns: 90px 1fr;
+  height: 244px;
+}
+
+.change-channel-text{
+  display: none;
+  position: absolute;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+  font-size: 14px;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .bottom{
@@ -72,10 +80,12 @@ body {
 }
 
 #channelname{
-  background-color: #2e2e35;
+  background-color: var(--background-color);
   color: white;
+  font-size: 20pt;
   border: 2px solid var(--background-color);
   outline: none;
+  text-align: center;
 }
 
 #btn-update-channel{
@@ -102,7 +112,7 @@ a:hover{
 }
 
 .edit-channel {
-  display: none;
+  display: flex;
   vertical-align: middle;
   text-align: center;
   height: 100%;
@@ -114,12 +124,6 @@ a:hover{
 
 .top:hover .pfp{
   opacity: 20%;
-}
-
-
-.top:focus-within > .edit-channel{
-  display: flex;
-  height: 40%;
 }
 
 .top:focus {
@@ -164,7 +168,9 @@ input[type=number]:focus{
 
 .pfp {
   border-radius: 50%;
-  padding: 10px;
+  border: 2px solid var(--blue);
+  width: 200px;
+  height: auto;
 }
 
 .options {
@@ -177,20 +183,17 @@ input[type=number]:focus{
 
 
 .options > div {
-  border-radius: 15px;
-  border: 2px solid #2e2e35;
-  padding: 10px;
   width: 100%;
   display: grid;
   align-content: center;
-  grid-template-columns: 2fr 68% 1fr;
+  grid-template-columns: 70px 120px 40px;;
 }
 
-.label {
+/* .label {
   width: 100%;
   padding-right: 15px;
   text-align: right;
-}
+} */
 
 .number-input{
   padding-left: 15px;
@@ -210,42 +213,19 @@ input[type=number]:focus{
 
 .bottom {
   display: grid;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 1fr 3fr;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-.unlocked{
-  background-color: #2e2e35;
-}
-
-.locked{
-  background-color: #7546c0;
-}
-
-.switch{
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#toggle-lock{
-  height: 60%;
-  width: 90%;
-  border-radius: 8px;
-  border: none;
-  color: white;
-  
-  font-size: 20px;
-}
-
 .authors {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-direction: row-reverse;
   text-align: left;
   padding-right: 14px;
+  column-gap: 5px;
 }
 
 .slider {
@@ -277,4 +257,101 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+[type="checkbox"] {
+  position: absolute;
+  left: -9999px;
+} 
+
+
+.switches {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.switches input {
+  width: 80px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: var(--gray);
+  outline: none;
+  border: 2px solid var(--blue);
+  cursor: pointer;
+}
+
+.switch-button {
+  display: flex;
+  flex-direction: row;
+  column-gap: 50px;
+}
+
+.switches label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switches span:last-child {
+  cursor: pointer;
+  position: relative;
+  width: 50px;
+  height: 26px;
+  border-radius: 15px;
+  border: 2px solid var(--blue);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
+  background: var(--gray);
+  transition: all 0.3s;
+}
+ 
+.switches span:last-child::before,
+.switches span:last-child::after {
+  content: "";
+  position: absolute;
+}
+ 
+.switches span:last-child::before {
+  left: 1px;
+  top: 1px;
+  width: 24px;
+  height: 24px;
+  background: var(--white);
+  border-radius: 50%;
+  z-index: 1;
+  transition: transform 0.3s;
+}
+ 
+.switches span:last-child::after {
+  top: 50%;
+  right: 8px;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%);
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/uncheck-switcher.svg);
+  background-size: 12px 12px;
+}
+
+.switches [type="checkbox"]:checked + label span:last-child {
+  background: var(--green);
+}
+ 
+.switches [type="checkbox"]:checked + label span:last-child::before {
+  transform: translateX(24px);
+}
+ 
+.switches [type="checkbox"]:checked + label span:last-child::after {
+  width: 14px;
+  height: 14px;
+  left: 8px;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/checkmark-switcher.svg);
+  background-size: 14px 14px;
+}
+
+:root {
+  --white: #e8e9ed;
+  --gray: #434257;
+  --blue: #18172c;
+  --green: #00d084;
+  --pink: #ff4b77;
 }

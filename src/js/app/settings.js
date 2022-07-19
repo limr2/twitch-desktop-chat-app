@@ -59,15 +59,10 @@ async function loadPrefs(){
     console.log(`>>> Locked: ${locked}`)
     if(locked){
         $('#toggle-lock').addClass('locked')
-        $('#toggle-lock').data('locked', true)
-        $('#toggle-lock').html('unlock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
         await ipcRenderer.invoke('chat-window', 'lock')
         console.log('>>> sent lock')
     } else {        
-        $('#toggle-lock').addClass('unlocked')
-        $('#toggle-lock').data('locked', false)
         await ipcRenderer.invoke('chat-window', 'unlock')
-        $('#toggle-lock').html('lock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
         console.log('>>> sent unlock')
     }
 
@@ -157,31 +152,38 @@ async function handleOverlayLock(){
 
     $('#toggle-lock').on('click', async function(){
         console.log('>>> clicked toggle lock')
-        if(!$(this).data('locked')){
-            console.log('>>> locking')
-            var result = await ipcRenderer.invoke('chat-window', 'lock')
-            if(result = 1){
-                $(this).removeClass('unlocked')
-                $(this).addClass('locked')
-                $(this).data('locked', true)
-                $(this).html('unlock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
-            }
-            return
-        } else {
-            console.log('>>> unlocking')
-            var result = await ipcRenderer.invoke('chat-window', 'unlock')
-            if(result = 1){
-                $(this).removeClass('locked')
-                $(this).addClass('unlocked')
-                $(this).data('locked', false)
-                $(this).html('lock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
-            }
-            return
-        }
+
+        $('#toggle-lock').toggleClass(['locked']);
+        let bool = $('#toggle-lock').hasClass('locked')
+        console.log(`Pressed Lock: ${bool}`)
+        // overwolf.windows.sendMessage('background', 'toggle-lock', bool, res => {})
+        var result = await ipcRenderer.invoke('chat-window', bool ? 'lock': 'unlock')
+
+        // if(!$(this).data('locked')){
+        //     console.log('>>> locking')
+        //     var result = await ipcRenderer.invoke('chat-window', 'lock')
+        //     if(result = 1){
+        //         $(this).removeClass('unlocked')
+        //         $(this).addClass('locked')
+        //         $(this).data('locked', true)
+        //         $(this).html('unlock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
+        //     }
+        //     return
+        // } else {
+        //     console.log('>>> unlocking')
+        //     var result = await ipcRenderer.invoke('chat-window', 'unlock')
+        //     if(result = 1){
+        //         $(this).removeClass('locked')
+        //         $(this).addClass('unlocked')
+        //         $(this).data('locked', false)
+        //         $(this).html('lock overlay&nbsp;&nbsp;<span class=bi-fullscreen>')
+        //     }
+        //     return
+        // }
     })
 }
 
 ipcRenderer.on("update-channel-displays", function(event, data){    
-    $('.pfp').attr("src", `${data[0].replace('300x300', '70x70')}`)
+    $('.pfp').attr("src", `${data[0]}`)
     $('#example-channelname').html(`${data[1]}`)
 })

@@ -55,6 +55,7 @@ body {
 .frame {
   border: 5px solid rgba(26, 26, 26, 0.815);
   border-style: groove;
+  background-color: #0e0e0e4f
 }
 
 .highlight {

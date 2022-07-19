@@ -21,39 +21,48 @@
           </div>
         </div>
 
-        <div class="example-text">
-          <span class="chat-text-example chat-username" id="example-channelname" style="color: #953c3c"></span>
-          <span class="chat-text-example" id="example-channeltext"></span>
-        </div>
-
         <div class="edit-channel">
-          <input id="channelname" type="text">
-          <button id="btn-update-channel">update</button>
+          <input id="channelname" type="text" spellcheck="false">
         </div>
 
-      </div >
-      <div class="options">
-        <div class="option-contents" id="font-size-options">
-          <span class="label">size</span>
-          <input id="font-size-slider" class="slider" type="range" min="12" max="60" step="2"/>
-          <input id="font-size-text" class="number-input" type="number" min="12" max="44" step="2"/>
-        </div>
-        <div class="option-contents" id="opacity-options">
-          <span class="label">opacity</span>
-          <input id="opacity-slider" class="slider" type="range" min="0" max="1" step=".1"/>
-          <input id="opacity-text" class="number-input" type="number" min="0" max="1" step=".1"/>
-        </div>
-        <div class="option-contents" id="fadeout-options">
-          <span class="label">fadeout</span>
-          <input id="fade-delay-slider" class="slider" type="range" min="0" max="30" step="1"/>
-          <input id="fade-delay-text" class="number-input" type="number" min="0" max="30" step="1"/>
-        </div>
       </div >
       <div class="bottom">
-        <div class="switch">
-            <button class="unlocked" id="toggle-lock">lock overlay&nbsp;&nbsp;<span class=bi-fullscreen></span></button>
-            
+        <div class="switches-container">
+          <div class="switches">
+            <div>Show</div>
+            <input type="checkbox" id="1" checked>
+            <label for="1">
+              <span id="toggle-show"></span>       
+            </label>             
+          </div>
+          <div class="switches">
+              <div>Lock</div>
+              <input type="checkbox" id="2">
+              <label for="2">
+                <span id="toggle-lock"></span>
+              </label>      
+          </div>
         </div>
+        <div class="options">
+          <div class="option-contents" id="font-size-options">
+            <span class="label">size</span>
+            <input id="font-size-slider" class="slider" type="range" min="12" max="60" step="2"/>
+            <input id="font-size-text" class="number-input" type="number" min="12" max="44" step="2"/>
+          </div>
+          <div class="option-contents" id="opacity-options">
+            <span class="label">opacity</span>
+            <input id="opacity-slider" class="slider" type="range" min="0" max="1" step=".1"/>
+            <input id="opacity-text" class="number-input" type="number" min="0" max="1" step=".1"/>
+          </div>
+          <div class="option-contents" id="fadeout-options">
+            <span class="label">fadeout</span>
+            <input id="fade-delay-slider" class="slider" type="range" min="0" max="30" step="1"/>
+            <input id="fade-delay-text" class="number-input" type="number" min="0" max="30" step="1"/>
+          </div>
+        </div >
+      </div>
+      
+      <div class="footer">
         <div class="authors">
           <a href="https://twitter.com/theQarthO">@QarthO</a>
           <a href="https://www.roselol.com">@roselol</a>
