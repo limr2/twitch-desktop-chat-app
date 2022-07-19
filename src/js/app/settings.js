@@ -57,12 +57,12 @@ async function loadPrefs(){
     // $('#example-channelname').html(`${channel} `)
 
     console.log(`>>> Locked: ${locked}`)
-    if(locked){
+    if(!locked){
         $('#toggle-lock').addClass('locked')
-        await ipcRenderer.invoke('chat-window', 'lock')
+        await ipcRenderer.invoke('chat-window', 'unlock')
         console.log('>>> sent lock')
     } else {        
-        await ipcRenderer.invoke('chat-window', 'unlock')
+        await ipcRenderer.invoke('chat-window', 'lock')
         console.log('>>> sent unlock')
     }
 
