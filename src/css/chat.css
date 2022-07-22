@@ -26,10 +26,10 @@
   vertical-align: text-bottom;
   margin-bottom: -5px;
 }
-/* 
+
 .line{
-  display: flex;
-} */
+  padding-top: 16px;
+}
 
 .message {
   margin-left: 5px;
