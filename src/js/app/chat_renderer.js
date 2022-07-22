@@ -67,6 +67,7 @@ ipcRenderer.on('update-chat', function(event, msg, context, badgeParser, current
 })
 
 function updateChat(msg, context, currentChannelSubBadges, currentGlobalBadges){
+    if(msg.charAt(0) == "!") return 
     console.log(`currentGlobalBadges: ${currentGlobalBadges}`)
     new_time = config.get('idle.time')
     idle.reset(new_time*1000)
